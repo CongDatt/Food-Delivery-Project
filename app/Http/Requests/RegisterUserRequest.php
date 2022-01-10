@@ -17,7 +17,7 @@ class RegisterUserRequest extends BaseRequest
             'email' => 'required_without:phone|unique:users,email|min:10|string|email',
             'phone' => ['required_without:mail','regex:/^(84|0[3|5|7|8|9])+([0-9]{8})\b/'],
             'name' =>  'required|string|min:5',
-            'password' => 'required|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}/' ,
+            'password' => 'required|string' ,
         ];
     }
 

@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Order;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -120,4 +121,10 @@ class User extends Authenticatable implements JWTSubject
     // ======================================================================
     // Relationships
     // ======================================================================
+    
+        public function orders() {
+            return $this->hasMany(Order::class);
+        }
+
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\SocialLoginController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
