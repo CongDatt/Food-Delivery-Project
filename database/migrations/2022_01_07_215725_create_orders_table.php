@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('total_price');
             $table->boolean('status');
 
+
             $table->foreignId('shipper_id')->constrained('shippers')->cascadeOnDelete();
             $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

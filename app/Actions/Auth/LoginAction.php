@@ -8,9 +8,11 @@ use Flugg\Responder\Exceptions\Http\PageNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Str;
 
 class LoginAction extends BaseAction
 {
+
     /**
      * @param $credentials
      * @return \Illuminate\Http\JsonResponse
@@ -29,10 +31,13 @@ class LoginAction extends BaseAction
         if (! $token = JWTAuth::attempt($this->credentials($credentials))) {
             return $this->error('unauthenticated')->respond(JsonResponse::HTTP_UNAUTHORIZED);
         }
-
-        if (optional(auth()->user()->roles)->first()->name === Arr::get($credentials, 'guard')) {
+        else {
             return $this->generateToken($token);
         }
+
+        // if (optional(auth()->user()->roles)->first()->name === Arr::get($credentials, 'guard')) {
+        //     return $this->generateToken($token);
+        // }
         throw new PageNotFoundException();
     }
 
@@ -42,8 +47,13 @@ class LoginAction extends BaseAction
      */
     public function generateToken($token): JsonResponse
     {
+        $auth = app('firebase.auth');
+        $uid =  (string) Str::uuid();
+        $customToken = $auth->createCustomToken($uid);
+
         return response()->json([
             'access_token' => $token,
+            'firebase-token'=>$customToken->toString(),
             'token_type'   => 'bearer',
             'expires_in'   => JWTAuth::factory()->getTTL(),
         ]);
