@@ -7,6 +7,9 @@ use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\MerchantController;
+use App\Http\Controllers\API\ShipperController;
+use App\Http\Controllers\API\DishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,9 @@ Route::prefix('auth')->group(function () {
         Route::get('profile', [AuthController::class, 'me']);
     });
 });
+Route::apiResource('merchant', MerchantController::class);
+Route::apiResource('shipper', ShipperController::class);
+Route::apiResource('dish', DishController::class);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('users', UserController::class);

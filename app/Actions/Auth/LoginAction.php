@@ -38,7 +38,7 @@ class LoginAction extends BaseAction
         // if (optional(auth()->user()->roles)->first()->name === Arr::get($credentials, 'guard')) {
         //     return $this->generateToken($token);
         // }
-        throw new PageNotFoundException();
+        //        throw new PageNotFoundException();
     }
 
     /**
