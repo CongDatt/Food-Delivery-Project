@@ -37,13 +37,27 @@ class RolesAndPermissionsSeeder extends Seeder
             'display_name' => RoleType::getKey(RoleType::ADMIN),
         ]);
         $adminRole->syncPermissions(Permission::all());
-        // Create manager role
-        $managerRole = Role::updateOrCreate([
-            'name'         => 'manager',
-            'display_name' => 'MANAGER',
+
+        // Create merchant role
+        $merchantRole = Role::updateOrCreate([
+            'name'         => 'merchant',
+            'display_name' => 'MERCHANT',
         ]);
-        $managerRole->syncPermissions(Permission::query()
-                                                ->where('name', 'like', 'VIEW-USER')
-                                                ->get());
+        $merchantRole->syncPermissions(Permission::query()
+                    ->where('name', 'like', 'VIEW-DISH')
+                    ->orWhere('name', 'like', 'CREATE_DISH')
+                    ->orWhere('name', 'like', 'UPDATE-DISH')
+                    ->orWhere('name', 'like', 'DELETE-DISH')
+                    ->get());
+
+        // Create shipper role
+        $managerRole = Role::updateOrCreate([
+            'name'         => 'shipper',
+            'display_name' => 'SHIPPER',
+        ]);
+//        $managerRole->syncPermissions(Permission::query()
+//            ->where('name', 'like', 'VIEW-USER')
+//            ->get());
+
     }
 }

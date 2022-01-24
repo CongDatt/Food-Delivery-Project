@@ -35,10 +35,10 @@ class LoginAction extends BaseAction
             return $this->generateToken($token);
         }
 
-        // if (optional(auth()->user()->roles)->first()->name === Arr::get($credentials, 'guard')) {
-        //     return $this->generateToken($token);
-        // }
-        //        throw new PageNotFoundException();
+//         if (optional(auth()->user()->roles)->first()->name === Arr::get($credentials, 'guard')) {
+//             return $this->generateToken($token);
+//         }
+//                throw new PageNotFoundException();
     }
 
     /**
@@ -47,13 +47,13 @@ class LoginAction extends BaseAction
      */
     public function generateToken($token): JsonResponse
     {
-        $auth = app('firebase.auth');
-        $uid =  (string) Str::uuid();
-        $customToken = $auth->createCustomToken($uid);
+//        $auth = app('firebase.auth');
+//        $uid =  (string) Str::uuid();
+//        $customToken = $auth->createCustomToken($uid);
 
         return response()->json([
             'access_token' => $token,
-            'firebase-token'=>$customToken->toString(),
+//            'firebase-token'=>$customToken->toString(),
             'token_type'   => 'bearer',
             'expires_in'   => JWTAuth::factory()->getTTL(),
         ]);

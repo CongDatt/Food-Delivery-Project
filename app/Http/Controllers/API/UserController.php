@@ -10,7 +10,7 @@ class UserController extends ApiController
 {
     public function __construct()
     {
-            //$this->authorizeResource(Staff::class);
+//            $this->authorizeResource(Staff::class);
     }
 
     /**

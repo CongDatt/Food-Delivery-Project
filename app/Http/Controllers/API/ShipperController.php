@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\Shipper\UpdateShipperRequest;
+use App\Models\Role;
 use App\Models\Shipper;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Shipper\ShowDetailShipperAction;
@@ -16,6 +17,10 @@ use App\Http\Requests\Shipper\CreateShipperRequest;
 class ShipperController extends ApiController
 {
 
+    public function __construct()
+    {
+        $this->authorizeResource(Role::class);
+    }
     public function index(ShowListShipperAction $action): JsonResponse
     {
         return ($action)();
