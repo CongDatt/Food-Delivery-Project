@@ -21,9 +21,7 @@ class CreateMerchantAction extends BaseAction
     public function __invoke(array $data): JsonResponse
     {
         return DB::transaction(function () use ($data) {
-            $path = $data['image']->store('images_dat','s3');
-            $merchant = Merchant::create(Arr::except($data, 'image'));
-            $merchant->image = Storage::disk('s3')->url($path);
+            $merchant = Merchant::create($data);
 
             return $this->ok($merchant, MerchantTransformer::class);
         });

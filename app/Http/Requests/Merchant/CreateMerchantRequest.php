@@ -13,7 +13,6 @@ class CreateMerchantRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'image' => 'required',
             'merchant_name' => 'required|string|unique:merchants,merchant_name',
             'email' => 'required',
             'password' => 'required',

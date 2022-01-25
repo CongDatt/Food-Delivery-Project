@@ -19,7 +19,7 @@ class Merchant extends Authenticatable
         return MerchantBuilder::class;
     }
     protected $fillable = [
-        'merchant_name', 'address', 'image', 'email', 'password',
+        'merchant_name', 'address', 'email', 'password',
     ];
     /**
      * The attributes that should be hidden for serialization.

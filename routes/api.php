@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\MerchantController;
 use App\Http\Controllers\API\ShipperController;
 use App\Http\Controllers\API\DishController;
+use App\Http\Controllers\API\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::prefix('auth')->group(function () {
 Route::apiResource('merchant', MerchantController::class);
 Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('dish', DishController::class);
+Route::apiResource('image', ImageController::class);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('users', UserController::class);
