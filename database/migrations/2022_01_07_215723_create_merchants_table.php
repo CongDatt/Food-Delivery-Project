@@ -15,9 +15,11 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name');
             $table->string('merchant_name');
-            $table->string('address');  
+            $table->string('image')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
+            $table->string('address');
             $table->timestamps();
         });
     }

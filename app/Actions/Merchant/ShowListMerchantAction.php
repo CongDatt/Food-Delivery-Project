@@ -29,8 +29,7 @@ class ShowListMerchantAction extends BaseAction
     {
         $merchant = Merchant::query()
             ->filter($this->merchantFilter)
-            ->sortBy($this->merchantSort)
-            ->paginate($this->per_page);
+            ->sortBy($this->merchantSort);
 
         return $this->ok($merchant, MerchantTransformer::class);
     }

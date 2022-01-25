@@ -7,6 +7,10 @@ use App\Models\Merchant;
 use App\Transformers\MerchantTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Aws\S3\S3Client;
+use Aws\S3\S3ClientInterface;
+use Illuminate\Support\Arr;
 
 class CreateMerchantAction extends BaseAction
 {
@@ -17,8 +21,9 @@ class CreateMerchantAction extends BaseAction
     public function __invoke(array $data): JsonResponse
     {
         return DB::transaction(function () use ($data) {
-
-            $merchant = Merchant::create($data);
+            $path = $data['image']->store('images_dat','s3');
+            $merchant = Merchant::create(Arr::except($data, 'image'));
+            $merchant->image = Storage::disk('s3')->url($path);
 
             return $this->ok($merchant, MerchantTransformer::class);
         });

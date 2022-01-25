@@ -13,7 +13,7 @@ class UpdateMerchantRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'customer_name' => 'sometimes|string',
+            'image' => 'sometimes|string',
             'merchant_name' => 'sometimes|string',
             'address'       => 'sometimes',
         ];
