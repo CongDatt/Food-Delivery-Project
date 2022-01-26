@@ -17,6 +17,8 @@ class CreateShippersTable extends Migration
             $table->id();
             $table->string('customer_name');
             $table->string('shipper_name');
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

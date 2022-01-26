@@ -29,8 +29,7 @@ class ShowListDishAction extends BaseAction
     {
         $dish = Dish::query()
             ->filter($this->dishFilter)
-            ->sortBy($this->dishSort)
-            ->paginate($this->per_page);
+            ->sortBy($this->dishSort);
 
         return $this->ok($dish, DishTransformer::class);
     }

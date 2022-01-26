@@ -43,12 +43,12 @@ class RolesAndPermissionsSeeder extends Seeder
             'name'         => 'merchant',
             'display_name' => 'MERCHANT',
         ]);
-        $merchantRole->syncPermissions(Permission::query()
-                    ->where('name', 'like', 'VIEW-DISH')
-                    ->orWhere('name', 'like', 'CREATE_DISH')
-                    ->orWhere('name', 'like', 'UPDATE-DISH')
-                    ->orWhere('name', 'like', 'DELETE-DISH')
-                    ->get());
+//        $merchantRole->syncPermissions(Permission::query()
+//                    ->where('name', 'like', 'VIEW-DISH')
+//                    ->orWhere('name', 'like', 'CREATE_DISH')
+//                    ->orWhere('name', 'like', 'UPDATE-DISH')
+//                    ->orWhere('name', 'like', 'DELETE-DISH')
+//                    ->get());
 
         // Create shipper role
         $managerRole = Role::updateOrCreate([

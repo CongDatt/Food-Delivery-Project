@@ -8,6 +8,7 @@ use App\Models\Merchant;
 use App\Sorts\MerchantSort;
 use App\Transformers\MerchantTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ShowListMerchantAction extends BaseAction
 {
@@ -15,11 +16,13 @@ class ShowListMerchantAction extends BaseAction
 
     protected $merchantSort;
 
-    public function __construct(MerchantFilter $merchantFilter, MerchantSort $merchantSort)
+    public function __construct(MerchantFilter $merchantFilter, MerchantSort $merchantSort, Request $request)
     {
         parent::__construct();
         $this->merchantFilter = $merchantFilter;
         $this->merchantSort = $merchantSort;
+        $this->q = $request->input('q');
+
     }
 
     /**
@@ -27,7 +30,7 @@ class ShowListMerchantAction extends BaseAction
      */
     public function __invoke(): JsonResponse
     {
-        $merchant = Merchant::query()
+        $merchant = Merchant::where("merchant_name","like","%".$this->q."%")
             ->filter($this->merchantFilter)
             ->sortBy($this->merchantSort);
 

@@ -7,9 +7,10 @@ use App\Enums\RoleType;
 use App\Traits\OverridesBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Merchant extends Authenticatable
+class Merchant extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     use OverridesBuilder;

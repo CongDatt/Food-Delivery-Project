@@ -29,8 +29,7 @@ class ShowListShipperAction extends BaseAction
     {
         $shipper = Shipper::query()
             ->filter($this->shipperFilter)
-            ->sortBy($this->shipperSort)
-            ->paginate($this->per_page);
+            ->sortBy($this->shipperSort);
 
         return $this->ok($shipper, ShipperTransformer::class);
     }

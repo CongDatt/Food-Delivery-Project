@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Actions\Merchant\ShowDetailMerchantAction;
 use App\Models\Merchant;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Merchant\ShowListMerchantAction;
 use App\Actions\Merchant\CreateMerchantAction;
@@ -15,10 +17,10 @@ use Psy\Util\Json;
 
 class MerchantController extends ApiController
 {
-//    public function __construct()
-//    {
-//        $this->authorizeResource(Merchant::class);
-//    }
+    public function __construct()
+    {
+//        $this->authorizeResource(Role::class);
+    }
     /**
      * @param ShowListMerchantAction $action
      * @return JsonResponse

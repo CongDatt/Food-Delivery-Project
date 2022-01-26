@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Str;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use League\Flysystem\Config;
 
 class LoginAction extends BaseAction
 {
@@ -28,7 +30,7 @@ class LoginAction extends BaseAction
      */
     public function execute($credentials): JsonResponse
     {
-        if (! $token = JWTAuth::attempt($this->credentials($credentials))) {
+        if ( !$token = auth('merchants')->attempt($this->credentials($credentials))) {
             return $this->error('unauthenticated')->respond(JsonResponse::HTTP_UNAUTHORIZED);
         }
         else {
@@ -47,15 +49,10 @@ class LoginAction extends BaseAction
      */
     public function generateToken($token): JsonResponse
     {
-//        $auth = app('firebase.auth');
-//        $uid =  (string) Str::uuid();
-//        $customToken = $auth->createCustomToken($uid);
-
         return response()->json([
             'access_token' => $token,
-//            'firebase-token'=>$customToken->toString(),
             'token_type'   => 'bearer',
-            'expires_in'   => JWTAuth::factory()->getTTL(),
+            'expires_in'   => JWTAuth::factory()->getTTL() * 1000,
         ]);
     }
 

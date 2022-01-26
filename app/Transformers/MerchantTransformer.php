@@ -30,7 +30,6 @@ class MerchantTransformer extends Transformer
         return [
             'id' => (int) $merchant->id,
             'merchant_name' => (string) $merchant->merchant_name,
-            'img_url' => (string) $merchant->image,
             'address' => (string) $merchant->address,
         ];
     }

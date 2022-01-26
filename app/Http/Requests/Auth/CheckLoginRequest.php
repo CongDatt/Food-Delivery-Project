@@ -21,7 +21,7 @@ class CheckLoginRequest extends BaseRequest
         return [
             'guard'    => ['required', Rule::in(RoleType::asArray())],
             'username' => ['required', new CheckTypeUsername($this->guard)],
-            'password' => ['required','min:6','max:10',new CheckPasswordAdmin($this->guard)],
+            'password' => ['required'],
         ];
     }
 }
