@@ -20,7 +20,7 @@ class MerchantController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('role:admin')->except(['index', 'show']);
+        $this->middleware('role:admin')->except(['index', 'show','login']);
 //        $this->authorizeResource(Role::class);
     }
     /**

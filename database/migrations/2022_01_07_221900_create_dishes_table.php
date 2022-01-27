@@ -15,9 +15,10 @@ class CreateDishesTable extends Migration
     {
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('dish_name')->nullable();
             $table->string('desc')->nullable();
+            $table->integer('price')->nullable();
             $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
 
             $table->timestamps();

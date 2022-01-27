@@ -19,7 +19,7 @@ class Dish extends Model
         return DishBuilder::class;
     }
 
-    protected $fillable = ['merchant_id', 'dish_name', 'desc'];
+    protected $fillable = ['merchant_id', 'dish_name', 'desc', 'price'];
 
     public function orders() {
         return $this->belongsToMany(Order::class);

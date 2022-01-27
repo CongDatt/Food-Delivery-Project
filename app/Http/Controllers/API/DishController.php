@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Actions\Dish\CreateDishAction;
+use App\Actions\Dish\DeleteDishAction;
 use App\Actions\Dish\ShowDetailDishAction;
 use App\Actions\Dish\ShowListDishAction;
+use App\Actions\Dish\UpdateDishAction;
 use App\Http\Controllers\API\ApiController;
 use App\Http\Requests\Dish\CreateDishRequest;
+use App\Http\Requests\Dish\UpdateDishRequest;
 use App\Models\Merchant;
 use App\Models\Role;
 use Illuminate\Http\JsonResponse;
@@ -58,9 +61,9 @@ class DishController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDishRequest $request, Dish $dish, UpdateDishAction $action): JsonResponse
     {
-        //
+        return ($action) ($dish, $request->validated());
     }
 
     /**
@@ -69,8 +72,8 @@ class DishController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dish $dish, DeleteDishAction $action)
     {
-        //
+        return ($action)($dish);
     }
 }

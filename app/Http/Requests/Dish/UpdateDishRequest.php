@@ -13,7 +13,9 @@ class UpdateDishRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'merchant_id' => 'sometimes',
+            'dish_name' => 'sometimes|string',
+            'desc' => 'sometimes|string',
+            'price' => 'sometimes'
         ];
     }
 }

@@ -13,7 +13,9 @@ class CreateDishRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'merchant_id' => 'required',
+            'dish_name' => 'required|string',
+            'desc' => 'required|string',
+            'price' => 'required'
         ];
     }
 }
