@@ -29,6 +29,7 @@ class MerchantController extends ApiController
     {
         return ($action)();
     }
+    // testing
 
     /**
      * Store a newly created resource in storage.
