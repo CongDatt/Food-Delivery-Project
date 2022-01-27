@@ -44,9 +44,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
 });
-//
-//Route::middleware(['auth:merchants'])->group(function () {
-//});
 
+Route::prefix('merchant')->group(function () {
+    Route::post('login', [MerchantController::class, 'login']);
+});
+//
+//Route::group(['middleware' => ['auth:merchants']], function() {
+//    Route::apiResource('merchant', MerchantController::class);
+//});
 Route::apiResource('cities', CityController::class)->only(['index', 'show']);
 Route::apiResource('districts', DistrictController::class)->only(['show']);

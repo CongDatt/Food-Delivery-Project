@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Merchant extends Authenticatable implements JWTSubject
 {
     use HasFactory;
+    use HasRoles;
     use OverridesBuilder;
 
     public function provideCustomBuilder(): string

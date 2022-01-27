@@ -10,10 +10,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Builders\ShipperBuilder;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Shipper extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
     use Notifiable;
     use OverridesBuilder;
 
@@ -22,7 +23,7 @@ class Shipper extends Authenticatable
         return ShipperBuilder::class;
     }
     protected $fillable = [
-        'customer_name', 'shipper_name', 'email', 'password',
+        'customer_name', 'shipper_name', 'email', 'password', 'phone', 'phone_plate'
     ];
 
 

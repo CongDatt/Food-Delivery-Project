@@ -11,7 +11,7 @@ use App\Models\Shipper;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'merchant_id', 'shipper_id'];
+    protected $fillable = ['user_id', 'merchant_id', 'shipper_id', 'status', 'amount'];
 
     public function dishes() {
         return $this->belongsToMany(Dish::class);

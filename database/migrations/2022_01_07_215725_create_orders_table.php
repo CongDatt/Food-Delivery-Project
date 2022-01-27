@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
 
             $table->integer('quantity');
-            $table->integer('total_price');
+            $table->integer('amount');
             $table->boolean('status');
 
 

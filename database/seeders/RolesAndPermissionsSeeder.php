@@ -6,6 +6,8 @@ use App\Enums\PermissionType;
 use App\Enums\RoleType;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Merchant;
+use App\Models\Shipper;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\Permission\PermissionRegistrar;
@@ -43,18 +45,42 @@ class RolesAndPermissionsSeeder extends Seeder
             'name'         => 'merchant',
             'display_name' => 'MERCHANT',
         ]);
-//        $merchantRole->syncPermissions(Permission::query()
-//                    ->where('name', 'like', 'VIEW-DISH')
-//                    ->orWhere('name', 'like', 'CREATE_DISH')
-//                    ->orWhere('name', 'like', 'UPDATE-DISH')
-//                    ->orWhere('name', 'like', 'DELETE-DISH')
-//                    ->get());
+        $merchant = Merchant::create([
+            'merchant_name' => 'acb',
+            'email' => 'test@example.com',
+            'password' => '123456',
+            'address' => 'Quan 7'
+        ]);
+        $merchant->assignRole($merchantRole);
+        $merchantRole->syncPermissions(Permission::query()
+                    ->where('name', 'like', 'VIEW-DISH')
+                    ->orWhere('name', 'like', 'CREATE_DISH')
+                    ->orWhere('name', 'like', 'UPDATE-DISH')
+                    ->orWhere('name', 'like', 'DELETE-DISH')
+                    ->get());
+
+        // Create user role
+        $userRole = Role::updateOrCreate([
+            'name'         => 'user',
+            'display_name' => 'USER',
+        ]);
 
         // Create shipper role
-        $managerRole = Role::updateOrCreate([
+        $shipperRole = Role::updateOrCreate([
             'name'         => 'shipper',
             'display_name' => 'SHIPPER',
         ]);
+        $shipper = Shipper::create([
+            'customer_name' => 'Doan',
+            'phone' => '1928921',
+            'phone_plate' => '01920192',
+            'shipper_name' => 'Cong Dat',
+            'email' => 'test@example.com',
+            'password' => '123456',
+        ]);
+        $shipper->assignRole($shipperRole);
+
+
 //        $managerRole->syncPermissions(Permission::query()
 //            ->where('name', 'like', 'VIEW-USER')
 //            ->get());

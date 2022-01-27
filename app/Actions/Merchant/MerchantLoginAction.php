@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Auth;
+namespace App\Actions\Merchant;
 
 use App\Actions\BaseAction;
 use App\Enums\RoleType;
@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use League\Flysystem\Config;
 
-class LoginAction extends BaseAction
+class MerchantLoginAction extends BaseAction
 {
 
     /**
@@ -30,7 +30,7 @@ class LoginAction extends BaseAction
      */
     public function execute($credentials): JsonResponse
     {
-        if ( !$token = auth('api')->attempt($this->credentials($credentials))) {
+        if ( !$token = auth('merchants')->attempt($this->credentials($credentials))) {
             return $this->error('unauthenticated')->respond(JsonResponse::HTTP_UNAUTHORIZED);
         }
         else {

@@ -7,12 +7,18 @@ use App\Actions\Dish\ShowDetailDishAction;
 use App\Actions\Dish\ShowListDishAction;
 use App\Http\Controllers\API\ApiController;
 use App\Http\Requests\Dish\CreateDishRequest;
+use App\Models\Merchant;
+use App\Models\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Dish;
 
 class DishController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware('auth:merchants')->except('index','show');
+    }
     /**
      * Display a listing of the resource.
      *
