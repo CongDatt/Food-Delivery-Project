@@ -4,6 +4,7 @@ namespace App\Actions\Dish;
 
 use App\Actions\BaseAction;
 use App\Models\Dish;
+use App\Models\User;
 use App\Transformers\DishTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -19,11 +20,11 @@ class CreateDishAction extends BaseAction
     public function __invoke(array $data): JsonResponse
     {
         return DB::transaction(function () use ($data) {
-            $user = User::find(auth()->user()->id);
-            $dish = $user->dish()::create([
+            $dish = Dish::create([
                 'dish_name' => $data['dish_name'],
                 'price' => $data['price'],
-                'desc' => $data['desc']
+                'desc' => $data['desc'],
+                'merchant_id' => auth()->user()->id
             ]);
             return $this->ok($dish, DishTransformer::class);
         });

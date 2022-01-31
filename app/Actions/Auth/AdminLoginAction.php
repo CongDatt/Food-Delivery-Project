@@ -31,7 +31,7 @@ class AdminLoginAction extends BaseAction
      */
     public function execute($credentials): JsonResponse
     {
-        if ( !$token = auth('admin')->attempt($this->credentials($credentials))) {
+        if ( !$token = auth('api')->attempt($this->credentials($credentials))) {
             return $this->error('unauthenticated')->respond(JsonResponse::HTTP_UNAUTHORIZED);
         }
         else {

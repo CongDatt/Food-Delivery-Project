@@ -18,7 +18,7 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Admin::create([
+        $admin = User::create([
             'email'             => null,
             'name'              => 'admin',
             'password'          => '123456',

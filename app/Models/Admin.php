@@ -15,7 +15,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class Admin extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, OverridesBuilder;
-    protected $guard_name = 'admin';
     public function provideCustomBuilder(): string
     {
         return AdminBuilder::class;
@@ -112,9 +111,9 @@ class Admin extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
-
-    public function guardName(): string
-    {
-        return "admin";
-    }
+//
+//    public function guardName(): string
+//    {
+//        return "admin";
+//    }
 }

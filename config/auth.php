@@ -56,11 +56,6 @@ return [
             'provider' => 'merchants',
             'hash' => false,
         ],
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admin',
-            'hash' => false,
-        ],
     ],
 
     /*
@@ -93,10 +88,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Shipper::class,
         ],
-        'admin' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ]
 
         // 'users' => [
         //     'driver' => 'database',
