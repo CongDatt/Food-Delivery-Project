@@ -2,29 +2,23 @@
 
 namespace App\Models;
 
-use App\Builders\UserBuilder;
+use App\Builders\AdminBuilder;
 use App\Enums\RoleType;
-use App\Enums\Socials;
-use App\Traits\HasUuid;
 use App\Traits\OverridesBuilder;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use App\Models\Order;
 
-class User extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject
 {
-    public $timestamps = false;
     use HasApiTokens, HasFactory, Notifiable, HasRoles, OverridesBuilder;
-
+    protected $guard_name = 'admin';
     public function provideCustomBuilder(): string
     {
-        return UserBuilder::class;
+        return AdminBuilder::class;
     }
 
     /**
@@ -42,11 +36,6 @@ class User extends Authenticatable implements JWTSubject
         'avatar',
         'provider_id',
         'provider_name',
-        'is_merchant',
-        'merchant_name',
-        'is_shipper',
-        'phone_plate',
-        'customer_name'
     ];
 
     /**
@@ -124,13 +113,8 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = bcrypt($value);
     }
 
-    // ======================================================================
-    // Relationships
-    // ======================================================================
-
-        public function orders() {
-            return $this->hasMany(Order::class);
-        }
-
-
+    public function guardName(): string
+    {
+        return "admin";
+    }
 }

@@ -9,10 +9,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Str;
+use App\Models\Admin;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use League\Flysystem\Config;
 
-class LoginAction extends BaseAction
+class AdminLoginAction extends BaseAction
 {
 
     /**
@@ -30,7 +31,7 @@ class LoginAction extends BaseAction
      */
     public function execute($credentials): JsonResponse
     {
-        if ( !$token = auth('api')->attempt($this->credentials($credentials))) {
+        if ( !$token = auth('admin')->attempt($this->credentials($credentials))) {
             return $this->error('unauthenticated')->respond(JsonResponse::HTTP_UNAUTHORIZED);
         }
         else {
@@ -57,12 +58,8 @@ class LoginAction extends BaseAction
      */
     protected function credentials($credentials): array
     {
-        if($credentials['username'] === 'admin' && $credentials['password'] === '123456') {
+        if($credentials['username'] === 'admin' || $credentials['password'] === '123456') {
             return ['name' => Arr::get($credentials, 'username'), 'password' => Arr::get($credentials, 'password')];
         }
-        if (filter_var(Arr::get($credentials, 'username'), FILTER_VALIDATE_EMAIL)) {
-            return ['email' => Arr::get($credentials, 'username'), 'password' => Arr::get($credentials, 'password')];
-        }
-        return ['phone' => Arr::get($credentials, 'username'), 'password' => Arr::get($credentials, 'password')];
     }
 }

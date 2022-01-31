@@ -12,6 +12,7 @@ use App\Http\Requests\Dish\CreateDishRequest;
 use App\Http\Requests\Dish\UpdateDishRequest;
 use App\Models\Merchant;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Dish;
@@ -20,7 +21,7 @@ class DishController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:merchants')->except('index','show');
+        $this->middleware('auth:api')->except('index','show','me');
     }
     /**
      * Display a listing of the resource.

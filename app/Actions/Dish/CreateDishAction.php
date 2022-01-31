@@ -19,10 +19,10 @@ class CreateDishAction extends BaseAction
     public function __invoke(array $data): JsonResponse
     {
         return DB::transaction(function () use ($data) {
-            $dish = Dish::create([
+            $user = User::find(auth()->user()->id);
+            $dish = $user->dish()::create([
                 'dish_name' => $data['dish_name'],
                 'price' => $data['price'],
-                'merchant_id' => auth('merchants')->user()->id,
                 'desc' => $data['desc']
             ]);
             return $this->ok($dish, DishTransformer::class);

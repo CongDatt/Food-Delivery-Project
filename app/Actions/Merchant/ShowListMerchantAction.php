@@ -4,7 +4,7 @@ namespace App\Actions\Merchant;
 
 use App\Actions\BaseAction;
 use App\Filters\MerchantFilter;
-use App\Models\Merchant;
+use App\Models\User;
 use App\Sorts\MerchantSort;
 use App\Transformers\MerchantTransformer;
 use Illuminate\Http\JsonResponse;
@@ -30,10 +30,13 @@ class ShowListMerchantAction extends BaseAction
      */
     public function __invoke(): JsonResponse
     {
-        $merchant = Merchant::where("merchant_name","like","%".$this->q."%")
-            ->filter($this->merchantFilter)
-            ->sortBy($this->merchantSort);
-
-        return $this->ok($merchant, MerchantTransformer::class);
+        if($this->q === null) {
+            $merchant = User::where('is_merchant',1)->get();
+            return response()->json($merchant);
+        }
+        else {
+            $merchant = User::where("merchant_name","like","%".$this->q."%")->get();
+            return response()->json([$merchant]);
+        }
     }
 }

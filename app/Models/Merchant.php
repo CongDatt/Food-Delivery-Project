@@ -7,15 +7,17 @@ use App\Enums\RoleType;
 use App\Traits\OverridesBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class Merchant extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
-    use HasRoles;
-    use OverridesBuilder;
+    public $timestamps = false;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, OverridesBuilder;
 
     public function provideCustomBuilder(): string
     {

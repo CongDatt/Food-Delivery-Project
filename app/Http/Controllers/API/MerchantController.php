@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Actions\Merchant\ShowDetailMerchantAction;
-use App\Models\Role;
+use App\Models\Admin;
+use App\Models\User;
 use App\Models\Merchant;
+use App\Models\Role;
+use App\Transformers\ProfileTransformer;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Merchant\ShowListMerchantAction;
 use App\Actions\Merchant\CreateMerchantAction;
@@ -20,66 +23,53 @@ class MerchantController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('role:admin')->except(['index', 'show','login']);
+        $this->middleware('auth:admin')->except('index','show','me');
 //        $this->authorizeResource(Role::class);
     }
-    /**
-     * @param ShowListMerchantAction $action
-     * @return JsonResponse
-     */
+
     public function index(ShowListMerchantAction $action):JsonResponse
     {
         return ($action)();
     }
-    // testing
 
-    /**
-     * Store a newly created resource in storage.
-     * @param CreateMerchantRequest $request
-     * @param CreateMerchantAction $action
-     * @return JsonResponse
-     */
     public function store(CreateMerchantRequest $request, CreateMerchantAction $action)
     {
         return ($action)($request->validated());
     }
 
-    /**
-     * Display the specified resource.
-     * @param Merchant $merchant
-     * @param ShowDetailMerchantAction $action
-     * @return JsonResponse
-     */
-    public function show(Merchant $merchant, ShowDetailMerchantAction $action): JsonResponse
-    {
-        return ($action) ($merchant);
+    public function show($id) {
+        $merchant = User::where([
+            ['id','=',$id],
+            ['is_merchant','=',1],
+        ])->get();
+
+        return response()->json([$merchant], 201);
     }
 
-    /**
-     *  Update the specified resource in storage.
-     * @param UpdateMerchantRequest $request
-     * @param Merchant $merchant
-     * @param UpdateMerchantAction $action
-     * @return JsonResponse
-     */
-    public function update(UpdateMerchantRequest $request, Merchant $merchant, UpdateMerchantAction $action): JsonResponse
+    public function update(UpdateMerchantRequest $request, $id): JsonResponse
     {
-        return ($action) ($merchant, $request->validated());
+        $merchant = User::where([
+            ['id','=',$id],
+            ['is_merchant','=',1],
+        ])->get();
+
+        $merchant->merchant_name = $request['merchant_name'];
+        $merchant->email         = $request['email'];
+        $merchant->password      = $request['password'];
+        $merchant->address       = $request['address'];
+        $merchant->is_merchant   = 1;
+
+        return $this->ok($merchant);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param Merchant $merchant
-     * @param DeleteMerchantAction $action
-     * @return mixed
-     */
-    public function destroy(Merchant $merchant, DeleteMerchantAction $action)
+    public function destroy(User $merchant)
     {
-        return ($action) ($merchant);
+        $merchant->delete();
+        return $this->noContent();
     }
 
-    public function login(CheckLoginRequest $request, MerchantLoginAction $action): JsonResponse
-    {
-        return ($action)($request->validated());
+    public function me() {
+        return $this->success(auth()->user(), ProfileTransformer::class)->respond(JsonResponse::HTTP_OK);
     }
+
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\RoleType;
+use App\Models\Admin;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -17,7 +18,7 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
+        $admin = Admin::create([
             'email'             => null,
             'name'              => 'admin',
             'password'          => '123456',
@@ -32,6 +33,6 @@ class DummyDataSeeder extends Seeder
         User::factory(5)->create()->each(function ($staff){
             $staff->syncRoles(Role::where('name', 'merchant')->first());
         });
-        User::factory(14)->create();
+        User::factory(5)->create();
     }
 }

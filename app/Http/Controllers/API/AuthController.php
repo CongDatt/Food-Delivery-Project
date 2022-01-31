@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Auth\AdminLoginAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginSocialAction;
 use App\Actions\Auth\LogoutAction;
@@ -24,6 +25,17 @@ class AuthController extends ApiController
         return ($action)($request->validated());
     }
 
+    /**
+     * @param \App\Http\Requests\Auth\CheckLoginRequest $request
+     * @param LoginAction $action
+     *
+     * @return JsonResponse
+     */
+    public function adminLogin(CheckLoginRequest $request, AdminLoginAction $action): JsonResponse
+    {
+
+        return ($action)($request->validated());
+    }
     /**
      * @param \App\Http\Requests\Auth\CheckLoginRequest $request
      * @param LoginAction $action

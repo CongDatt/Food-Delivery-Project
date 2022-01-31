@@ -22,7 +22,9 @@ class ProfileTransformer extends Transformer
      *
      * @var array
      */
-    protected $load = [];
+    protected $load = [
+        'roles'       => RoleTransformer::class,
+    ];
 
     /**
      * Transform the model.
@@ -36,6 +38,10 @@ class ProfileTransformer extends Transformer
             'id'    => $user->id,
             'name'  => (string) $user->name,
             'email' => (string) $user->email,
+            'is_merchant' => (string) $user->is_merchant,
+            'is_shipper' => (string) $user->is_shipper,
+            'phone' => (string) $user->phone,
+            'customer_name' => (string) $user->customer_name,
         ];
     }
 }

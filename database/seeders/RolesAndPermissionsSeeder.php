@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Merchant;
 use App\Models\Shipper;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\Permission\PermissionRegistrar;
@@ -45,7 +46,7 @@ class RolesAndPermissionsSeeder extends Seeder
 //            'name'         => 'merchant',
 //            'display_name' => 'MERCHANT',
 //        ]);
-//        $merchant = Merchant::create([
+//        $merchant = User::create([
 //            'merchant_name' => 'acb',
 //            'email' => 'test@example.com',
 //            'password' => '123456',
