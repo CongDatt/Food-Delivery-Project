@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Merchant;
+//use App\Models\Merchant;
 use App\Models\User;
 use Flugg\Responder\Transformers\Transformer;
 
@@ -14,8 +14,7 @@ class MerchantTransformer extends Transformer
      * @var string[]
      */
     protected $relations = [
-        'user'        => User::class,
-
+//        'user'        => User::class,
     ];
 
     /**
@@ -25,18 +24,20 @@ class MerchantTransformer extends Transformer
      */
     protected $load = [
     ];
-
     /**
-     * Transform the model.
-     *
-     * @param  \App\Models\Merchant $merchant
+     * @param User $merchant
      * @return array
      */
-    public function transform(Merchant $merchant)
+    public function transform(User $merchant)
     {
         return [
             'id' => (int) $merchant->id,
-            'name' => (string) $merchant->user->email,
+            'merchant_name' => (string) $merchant->merchant_name,
+            'address' => (string) $merchant->address,
+            'email' => (string) $merchant->email,
+            'category' => (string) $merchant->category,
+            'image' => (string) $merchant->image,
+            'description' => (string) $merchant->category,
         ];
     }
 }

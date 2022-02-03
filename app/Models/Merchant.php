@@ -24,7 +24,7 @@ class Merchant extends Authenticatable implements JWTSubject
         return MerchantBuilder::class;
     }
     protected $fillable = [
-        'merchant_name', 'address', 'email', 'password',
+        'merchant_name', 'address', 'email', 'password', 'image','category'
     ];
     /**
      * The attributes that should be hidden for serialization.

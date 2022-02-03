@@ -40,18 +40,15 @@ Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('image', ImageController::class);
 Route::apiResource('dish', DishController::class);
 
-Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
 });
 
-Route::prefix('merchant')->group(function () {
-    Route::post('login', [MerchantController::class, 'login']);
+Route::prefix('web')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::prefix('admin')->group(function () {
-    Route::post('login', [AuthController::class, 'adminLogin']);
-});
 Route::apiResource('cities', CityController::class)->only(['index', 'show']);
 Route::apiResource('districts', DistrictController::class)->only(['show']);

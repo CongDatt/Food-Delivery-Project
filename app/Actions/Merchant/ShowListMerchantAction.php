@@ -32,11 +32,11 @@ class ShowListMerchantAction extends BaseAction
     {
         if($this->q === null) {
             $merchant = User::where('is_merchant',1)->get();
-            return response()->json($merchant);
+            return $this->ok($merchant, MerchantTransformer::class);
         }
         else {
             $merchant = User::where("merchant_name","like","%".$this->q."%")->get();
-            return response()->json([$merchant]);
+            return $this->ok($merchant, MerchantTransformer::class);
         }
     }
 }

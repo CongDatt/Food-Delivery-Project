@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('category')->nullable();
+            $table->string('description')->nullable();
             $table->string('phone',10)->unique()->nullable();
             $table->integer('gender')->nullable();
             $table->boolean('is_merchant')->default(0);
@@ -27,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('customer_name')->nullable();
             $table->string('image')->nullable();
-            $table->string('phone_plate')->nullable();
+            $table->string('phone_plate',10)->nullable();
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();

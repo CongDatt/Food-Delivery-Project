@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Merchant;
 use App\Models\Role;
+use App\Transformers\MerchantTransformer;
 use App\Transformers\ProfileTransformer;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Merchant\ShowListMerchantAction;
@@ -23,8 +24,8 @@ class MerchantController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index','show','me');
-//        $this->authorizeResource(Role::class);
+//        $this->middleware('auth:api')->except('index','show','me');
+        $this->authorizeResource(Role::class);
     }
 
     public function index(ShowListMerchantAction $action):JsonResponse
@@ -43,7 +44,7 @@ class MerchantController extends ApiController
             ['is_merchant','=',1],
         ])->get();
 
-        return response()->json([$merchant], 201);
+        return $this->ok($merchant, MerchantTransformer::class);
     }
 
     public function update(UpdateMerchantRequest $request, $id): JsonResponse
@@ -51,15 +52,12 @@ class MerchantController extends ApiController
         $merchant = User::where([
             ['id','=',$id],
             ['is_merchant','=',1],
-        ])->get();
+        ])->first();
 
-        $merchant->merchant_name = $request['merchant_name'];
-        $merchant->email         = $request['email'];
-        $merchant->password      = $request['password'];
-        $merchant->address       = $request['address'];
+        $merchant->update($request->validated());
         $merchant->is_merchant   = 1;
 
-        return $this->ok($merchant);
+        return $this->ok($merchant, MerchantTransformer::class);
     }
 
     public function destroy(User $merchant)

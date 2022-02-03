@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Shipper;
+use App\Models\User;
 use Flugg\Responder\Transformers\Transformer;
 
 class ShipperTransformer extends Transformer
@@ -22,15 +22,16 @@ class ShipperTransformer extends Transformer
     protected $load = [];
 
     /**
-     * @param Shipper $shipper
+     * @param User $shipper
      * @return array
      */
-    public function transform(Shipper $shipper)
+    public function transform(User $shipper): array
     {
         return [
             'id' => (int) $shipper->id,
-            'customer_name' => (string) $shipper->customer_name,
-            'shipper_name' => (string) $shipper->shipper_name
+            'shipper_name' => (string) $shipper->name,
+            'phone' => (string) $shipper->phone,
+            'phone_plate' => (string) $shipper->phone_plate
         ];
     }
 }

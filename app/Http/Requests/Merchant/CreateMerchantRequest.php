@@ -16,6 +16,8 @@ class CreateMerchantRequest extends BaseRequest
             'merchant_name' => 'required|string|unique:merchants,merchant_name',
             'email' => 'required|unique:users,email',
             'password' => 'required',
+            'category' => 'string',
+            'description' => 'string',
             'address'       => 'required',
         ];
     }

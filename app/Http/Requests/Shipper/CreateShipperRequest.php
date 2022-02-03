@@ -13,8 +13,11 @@ class CreateShipperRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'customer_name' => 'required|string|unique:shippers,customer_name',
-            'shipper_name' => 'required|string|unique:shippers,shipper_name',
+            'email' => 'required_without:phone|unique:users,email|min:10|string|email',
+            'name' =>  'required|string|min:5',
+            'phone' => 'string|unique:users,phone',
+            'phone_plate' => 'string',
+            'password' => 'string',
         ];
     }
 }

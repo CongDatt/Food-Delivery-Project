@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Transformers\MerchantTransformer;
+use App\Transformers\RoleTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -30,6 +31,8 @@ class CreateMerchantAction extends BaseAction
             $merchant->email         = $data['email'];
             $merchant->password      = $data['password'];
             $merchant->address      = $data['address'];
+            $merchant->category      = $data['category'];
+            $merchant->description      = $data['description'];
             $merchant->is_merchant = 1;
 
             $merchant->save();
@@ -47,8 +50,7 @@ class CreateMerchantAction extends BaseAction
                 ->orWhere('name', 'like', 'UPDATE-DISH')
                 ->orWhere('name', 'like', 'DELETE-DISH')
                 ->get());
-
-            return response()->json($merchant, 201);
+            return $this->ok($merchant, MerchantTransformer::class);
         });
     }
 }
