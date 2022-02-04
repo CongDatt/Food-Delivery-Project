@@ -15,6 +15,7 @@ class CreateDishRequest extends BaseRequest
         return [
             'dish_name' => 'required|string',
             'desc' => 'required|string',
+            'image' => 'required|string',
             'price' => 'required'
         ];
     }

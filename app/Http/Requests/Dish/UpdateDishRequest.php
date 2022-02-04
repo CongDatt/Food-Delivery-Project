@@ -15,6 +15,7 @@ class UpdateDishRequest extends BaseRequest
         return [
             'dish_name' => 'sometimes|string',
             'desc' => 'sometimes|string',
+            'image' => 'sometimes|string',
             'price' => 'sometimes'
         ];
     }

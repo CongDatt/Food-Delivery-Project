@@ -18,6 +18,7 @@ class CreateDishesTable extends Migration
 
             $table->string('dish_name')->nullable();
             $table->string('desc')->nullable();
+            $table->string('image')->nullable();
             $table->integer('price')->nullable();
             $table->integer('merchant_id')->nullable();
 //            $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();

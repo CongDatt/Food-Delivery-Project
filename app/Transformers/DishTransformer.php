@@ -31,8 +31,8 @@ class DishTransformer extends Transformer
     {
         return [
             'id' => (int) $dish->id,
-            'merchant_id' => (string) $dish->merchant_id,
             'dish_name' => (string) $dish->dish_name,
+            'image' => (string) $dish->image,
             'price' => (string) $dish->price,
             'desc' => (string) $dish->desc,
         ];

@@ -31,12 +31,12 @@ class DishPolicy extends BasePolicy
         return $this->author($current, PermissionType::CREATE_DISH);
     }
 
- function update(User $current, Role $role): bool
+ function update(User $current): bool
     {
         return $this->author($current, PermissionType::UPDATE_DISH);
     }
 
-    public function delete(User $current, Role $role): bool
+    public function delete(User $current): bool
     {
         return $this->author($current, PermissionType::DELETE_DISH);
     }
