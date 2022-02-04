@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\DistrictController;
 use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;

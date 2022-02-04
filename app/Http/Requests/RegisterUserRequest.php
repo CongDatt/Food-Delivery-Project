@@ -16,7 +16,7 @@ class RegisterUserRequest extends BaseRequest
         return [
             'email' => 'required_without:phone|unique:users,email|min:10|string|email',
             'name' =>  'required|string|min:5',
-            'password' => 'required' ,
+            'password' => 'required|string' ,
         ];
     }
 

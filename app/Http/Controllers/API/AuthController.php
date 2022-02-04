@@ -31,17 +31,6 @@ class AuthController extends ApiController
      *
      * @return JsonResponse
      */
-    public function adminLogin(CheckLoginRequest $request, AdminLoginAction $action): JsonResponse
-    {
-
-        return ($action)($request->validated());
-    }
-    /**
-     * @param \App\Http\Requests\Auth\CheckLoginRequest $request
-     * @param LoginAction $action
-     *
-     * @return JsonResponse
-     */
     public function login(CheckLoginRequest $request, LoginAction $action): JsonResponse
     {
         return ($action)($request->validated());

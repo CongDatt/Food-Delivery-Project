@@ -47,7 +47,7 @@ class LoginAction extends BaseAction
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'bearer',
-            'expires_in'   => JWTAuth::factory()->getTTL() * 1000,
+            'expires_in'   => JWTAuth::factory()->getTTL() * 1000000,
         ]);
     }
 
