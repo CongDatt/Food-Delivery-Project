@@ -16,6 +16,7 @@ class UpdateShipperRequest extends BaseRequest
             'shipper_name' => 'sometimes|string',
             'email' => 'sometimes|string',
             'phone' => 'sometimes|string',
+            'image' => 'string',
             'phone_plate' => 'sometimes|string',
         ];
     }

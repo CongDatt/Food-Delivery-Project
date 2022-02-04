@@ -5,6 +5,7 @@ namespace App\Actions\Shipper;
 use App\Actions\BaseAction;
 use App\Filters\ShipperFilter;
 use App\Models\Shipper;
+use App\Models\User;
 use App\Sorts\ShipperSort;
 use App\Transformers\ShipperTransformer;
 use http\Env\Response;
@@ -28,9 +29,7 @@ class ShowListShipperAction extends BaseAction
      */
     public function __invoke(): JsonResponse
     {
-        $shipper = Shipper::query()
-            ->filter($this->shipperFilter)
-            ->sortBy($this->shipperSort);
+        $shipper = User::where('is_shipper',1)->get();
 
         return response()->json([
             'shipper_name' => $shipper->name,
