@@ -10,6 +10,7 @@ use App\Transformers\MerchantTransformer;
 use App\Transformers\ShipperTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShowListMerchantAction extends BaseAction
 {
@@ -23,6 +24,7 @@ class ShowListMerchantAction extends BaseAction
         $this->merchantFilter = $merchantFilter;
         $this->merchantSort = $merchantSort;
         $this->q = $request->input('q');
+        $this->category = $request->input('category');
 
     }
 
@@ -31,15 +33,29 @@ class ShowListMerchantAction extends BaseAction
      */
     public function __invoke(): JsonResponse
     {
-        if($this->q === null) {
+        if($this->q === null && $this->category == null) {
             $merchant = User::where('is_merchant',1)->get();
             return $this->ok($merchant, MerchantTransformer::class);
         }
-        else {
+
+        else if ($this->category !== null) {
             $merchant = User::query()
-                ->where("merchant_name","like","%".$this->q."%")
-            ->orWhere("name","like","%".$this->q."%")->get();
+                ->where("category", $this->category)->get();
             return $this->ok($merchant, MerchantTransformer::class);
         }
+//
+//        if ($this->q !== null) {
+//            $merchant = DB::table('users')->where('name','LIKE','%'.$this->q.'%')
+//                ->get();
+//            return $this->ok($merchant, MerchantTransformer::class);
+//        }
+//        else {
+//            $merchant = User::where([
+//                ["category", $this->category],
+//                ["name",'like', $this->q],
+//            ])
+//                ->get();
+//            return $this->ok($merchant, MerchantTransformer::class);
+//        }
     }
 }

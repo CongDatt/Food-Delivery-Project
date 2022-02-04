@@ -20,6 +20,7 @@ class ShowDetailShipperAction extends BaseAction
             'id'           => $shipper->id,
             'shipper_name' => $shipper->name,
             'email'        => $shipper->email,
+            'image'        => $shipper->image,
             'phone'        => $shipper->phone,
             'phone_plate'  => $shipper->phone_plate
         ]);

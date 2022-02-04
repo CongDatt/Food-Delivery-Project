@@ -31,6 +31,7 @@ class ShipperTransformer extends Transformer
             'id'           => (string) $shipper->id,
             'shipper_name' => (string) $shipper->name,
             'email' => (string) $shipper->email,
+            'image' => (string) $shipper->image,
             'phone' => (string) $shipper->phone,
             'phone_plate' => (string) $shipper->phone_plate
         ];
