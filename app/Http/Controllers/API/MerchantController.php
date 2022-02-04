@@ -44,6 +44,7 @@ class MerchantController extends ApiController
         ])->get();
 
         return response()->json([
+            'id'            => $merchant->id,
             'merchant_name' => $merchant->merchant_name,
             'address'       => $merchant->address,
             'email'         => $merchant->email,
@@ -64,6 +65,7 @@ class MerchantController extends ApiController
         $merchant->is_merchant   = 1;
 
         return response()->json([
+            'id'            => $merchant->id,
             'merchant_name' => $merchant->merchant_name,
             'address'       => $merchant->address,
             'email'         => $merchant->email,

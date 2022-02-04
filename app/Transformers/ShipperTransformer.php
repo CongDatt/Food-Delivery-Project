@@ -28,6 +28,7 @@ class ShipperTransformer extends Transformer
     public function transform(User $shipper): array
     {
         return [
+            'id'           => (string) $shipper->id,
             'shipper_name' => (string) $shipper->name,
             'email' => (string) $shipper->email,
             'phone' => (string) $shipper->phone,

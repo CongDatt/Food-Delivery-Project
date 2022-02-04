@@ -39,6 +39,7 @@ class CreateShipperAction extends BaseAction
 //                ->get());
 
             return response()->json([
+                'id'           => $shipper->id,
                 'shipper_name' => $shipper->name,
                 'email'        => $shipper->email,
                 'phone'        => $shipper->phone,

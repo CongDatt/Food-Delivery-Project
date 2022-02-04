@@ -31,6 +31,7 @@ class MerchantTransformer extends Transformer
     public function transform(User $merchant)
     {
         return [
+            'id' => (string) $merchant->id,
             'merchant_name' => (string) $merchant->merchant_name,
             'address' => (string) $merchant->address,
             'email' => (string) $merchant->email,

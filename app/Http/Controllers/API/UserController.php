@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Actions\User\ShowListUserAction;
+use App\Models\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class UserController extends ApiController
 {
     public function __construct()
     {
-//            $this->authorizeResource(Staff::class);
+            $this->authorizeResource(Role::class);
     }
 
     /**

@@ -17,6 +17,7 @@ class ShowDetailShipperAction extends BaseAction
     public function __invoke(User $shipper): JsonResponse
     {
         return response()->json([
+            'id'           => $shipper->id,
             'shipper_name' => $shipper->name,
             'email'        => $shipper->email,
             'phone'        => $shipper->phone,

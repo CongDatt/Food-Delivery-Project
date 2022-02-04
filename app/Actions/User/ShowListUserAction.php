@@ -12,27 +12,17 @@ use Illuminate\Http\JsonResponse;
 
 class ShowListUserAction extends BaseAction
 {
-    protected $userFilter;
-
-    protected $userSort;
-
-    public function __construct(UserFilter $userFilter, UserSort $userSort)
-    {
-        parent::__construct();
-        $this->userFilter = $userFilter;
-        $this->userSort = $userSort;
-    }
-
     /**
      * @return JsonResponse
      */
     public function __invoke(): JsonResponse
     {
         $user = User::query()
-                    ->listUser()
-                    ->filter($this->userFilter)
-                    ->sortBy($this->userSort)
-                    ->paginate($this->per_page);
+            ->where([
+                ['name','<>','admin'],
+                ['is_shipper','<>','1'],
+                ['is_merchant','<>','1'],
+            ])->get();
 
         return $this->ok($user, UserTransformer::class);
     }
