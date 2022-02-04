@@ -21,8 +21,7 @@ class DishController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index','show','me');
-//        $this->authorizeResource(Role::class);
+        $this->authorizeResource(Dish::class);
     }
     /**
      * Display a listing of the resource.

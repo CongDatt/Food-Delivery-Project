@@ -13,8 +13,10 @@ class UpdateShipperRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'customer_name' => 'sometimes|string',
             'shipper_name' => 'sometimes|string',
+            'email' => 'sometimes|string',
+            'phone' => 'sometimes|string',
+            'phone_plate' => 'sometimes|string',
         ];
     }
 }

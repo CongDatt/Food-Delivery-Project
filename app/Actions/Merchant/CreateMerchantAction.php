@@ -3,6 +3,7 @@
 namespace App\Actions\Merchant;
 
 use App\Actions\BaseAction;
+use App\Enums\RoleType;
 use App\Models\Merchant;
 use App\Models\Permission;
 use App\Models\Role;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Aws\S3\S3Client;
 use Aws\S3\S3ClientInterface;
 use Illuminate\Support\Arr;
+use App\Enums\PermissionType;
 
 class CreateMerchantAction extends BaseAction
 {
@@ -45,10 +47,10 @@ class CreateMerchantAction extends BaseAction
 
             $merchant->assignRole($merchantRole);
             $merchantRole->syncPermissions(Permission::query()
-                ->where('name', 'like', 'VIEW-DISH')
+                ->where('name', 'like', 'VIEW_DISH')
                 ->orWhere('name', 'like', 'CREATE_DISH')
-                ->orWhere('name', 'like', 'UPDATE-DISH')
-                ->orWhere('name', 'like', 'DELETE-DISH')
+                ->orWhere('name', 'like', 'UPDATE_DISH')
+                ->orWhere('name', 'like', 'DELETE_DISH')
                 ->get());
             return $this->ok($merchant, MerchantTransformer::class);
         });

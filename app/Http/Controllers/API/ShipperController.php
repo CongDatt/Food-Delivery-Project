@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\Shipper\UpdateShipperRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Transformers\ShipperTransformer;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Shipper\ShowDetailShipperAction;
 use App\Actions\Shipper\ShowListShipperAction;
@@ -27,7 +28,7 @@ class ShipperController extends ApiController
         return ($action)();
     }
 
-    public function store(CreateShipperRequest $request, CreateShipperAction $action)
+    public function store(CreateShipperRequest $request, CreateShipperAction $action): JsonResponse
     {
         return ($action)($request->validated());
     }
@@ -37,14 +38,28 @@ class ShipperController extends ApiController
         return ($action)($shipper);
     }
 
-    public function update(UpdateShipperRequest $request, User $shipper, UpdateShipperAction $action): JsonResponse
+    public function update(UpdateShipperRequest $request, $id): JsonResponse
     {
-        return ($action)($shipper, $request->validated());
+        $shipper = User::where([
+            ['id','=',$id],
+            ['is_shipper','=',1],
+        ])->first();
+
+        $shipper->update($request->validated());
+        $shipper->name = $request->name;
+        $shipper->is_shipper   = 1;
+        $shipper->save();
+
+        return $this->ok($shipper, ShipperTransformer::class);
     }
 
 
-    public function destroy(Shipper $shipper, DeleteShipperAction $action)
+    public function destroy(User $shipper, DeleteShipperAction $action)
     {
         return ($action)($shipper);
+    }
+
+    public function me() {
+        return $this->success(auth()->user(), ShipperTransformer::class)->respond(JsonResponse::HTTP_OK);
     }
 }
