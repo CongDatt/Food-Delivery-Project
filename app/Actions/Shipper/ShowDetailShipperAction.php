@@ -16,6 +16,11 @@ class ShowDetailShipperAction extends BaseAction
      */
     public function __invoke(User $shipper): JsonResponse
     {
-        return $this->ok($shipper, ShipperTransformer::class);
+        return response()->json([
+            'shipper_name' => $shipper->name,
+            'email'        => $shipper->email,
+            'phone'        => $shipper->phone,
+            'phone_plate'  => $shipper->phone_plate
+        ]);
     }
 }

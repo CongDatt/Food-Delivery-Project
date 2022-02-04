@@ -24,7 +24,6 @@ class MerchantController extends ApiController
 {
     public function __construct()
     {
-//        $this->middleware('auth:api')->except('index','show','me');
         $this->authorizeResource(Role::class);
     }
 
@@ -44,7 +43,14 @@ class MerchantController extends ApiController
             ['is_merchant','=',1],
         ])->get();
 
-        return $this->ok($merchant, MerchantTransformer::class);
+        return response()->json([
+            'merchant_name' => $merchant->merchant_name,
+            'address'       => $merchant->address,
+            'email'         => $merchant->email,
+            'category'      =>  $merchant->category,
+            'image'         => $merchant->image,
+            'description'   => $merchant->category,
+        ]);
     }
 
     public function update(UpdateMerchantRequest $request, $id): JsonResponse
@@ -57,7 +63,14 @@ class MerchantController extends ApiController
         $merchant->update($request->validated());
         $merchant->is_merchant   = 1;
 
-        return $this->ok($merchant, MerchantTransformer::class);
+        return response()->json([
+            'merchant_name' => $merchant->merchant_name,
+            'address'       => $merchant->address,
+            'email'         => $merchant->email,
+            'category'      =>  $merchant->category,
+            'image'         => $merchant->image,
+            'description'   => $merchant->category,
+        ]);
     }
 
     public function destroy(User $merchant)

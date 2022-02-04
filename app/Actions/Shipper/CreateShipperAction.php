@@ -20,16 +20,6 @@ class CreateShipperAction extends BaseAction
     {
         return DB::transaction(function () use ($data) {
 
-//            $shipper = new User();
-//
-//            $shipper->name = $data['name'];
-//            $shipper->email         = $data['email'];
-//            $shipper->password      = $data['password'];
-//            $shipper->phone       = $data['phone'];
-//            $shipper->phone_plate      = $data['phone_plate'];
-//            $shipper->is_shipper = 1;
-//
-//            $shipper->save();
             $shipper = User::create($data);
             $shipper->is_shipper = 1;
             $shipper->save();
@@ -48,7 +38,12 @@ class CreateShipperAction extends BaseAction
 //                ->orWhere('name', 'like', 'DELETE-DISH')
 //                ->get());
 
-            return $this->ok($shipper, ShipperTransformer::class);
+            return response()->json([
+                'shipper_name' => $shipper->name,
+                'email'        => $shipper->email,
+                'phone'        => $shipper->phone,
+                'phone_plate'  => $shipper->phone_plate
+            ],201);
         });
     }
 }

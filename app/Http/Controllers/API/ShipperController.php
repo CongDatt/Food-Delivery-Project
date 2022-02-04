@@ -20,7 +20,6 @@ class ShipperController extends ApiController
 
     public function __construct()
     {
-//        $this->middleware('auth:api')->except('index','show','me');
         $this->authorizeResource(Role::class);
     }
     public function index(ShowListShipperAction $action): JsonResponse
@@ -50,7 +49,12 @@ class ShipperController extends ApiController
         $shipper->is_shipper   = 1;
         $shipper->save();
 
-        return $this->ok($shipper, ShipperTransformer::class);
+        return response()->json([
+            'shipper_name' => $shipper->name,
+            'email'        => $shipper->email,
+            'phone'        => $shipper->phone,
+            'phone_plate'  => $shipper->phone_plate
+        ]);
     }
 
 

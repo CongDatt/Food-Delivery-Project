@@ -23,56 +23,27 @@ class DishController extends ApiController
     {
         $this->authorizeResource(Dish::class);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(ShowListDishAction $action)
+
+    public function index(ShowListDishAction $action): JsonResponse
     {
         return ($action)();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CreateDishRequest $request, CreateDishAction $action): JsonResponse
     {
         return ($action)($request->validated());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Dish $dish, ShowDetailDishAction $action): JsonResponse
     {
         return ($action)($dish);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateDishRequest $request, Dish $dish, UpdateDishAction $action): JsonResponse
     {
         return ($action) ($dish, $request->validated());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Dish $dish, DeleteDishAction $action)
     {
         return ($action)($dish);

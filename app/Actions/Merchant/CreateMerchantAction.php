@@ -27,16 +27,8 @@ class CreateMerchantAction extends BaseAction
     public function __invoke(array $data): JsonResponse
     {
         return DB::transaction(function () use ($data) {
-            $merchant = new User();
-
-            $merchant->merchant_name = $data['merchant_name'];
-            $merchant->email         = $data['email'];
-            $merchant->password      = $data['password'];
-            $merchant->address      = $data['address'];
-            $merchant->category      = $data['category'];
-            $merchant->description      = $data['description'];
+            $merchant = User::create($data);
             $merchant->is_merchant = 1;
-
             $merchant->save();
 
             // Create merchant role
@@ -52,7 +44,16 @@ class CreateMerchantAction extends BaseAction
                 ->orWhere('name', 'like', 'UPDATE_DISH')
                 ->orWhere('name', 'like', 'DELETE_DISH')
                 ->get());
-            return $this->ok($merchant, MerchantTransformer::class);
+
+            return response()->json([
+                'merchant_name' => $merchant->merchant_name,
+                'address' =>$merchant->address,
+                'email' => $merchant->email,
+                'category' =>  $merchant->category,
+                'image' => $merchant->image,
+                'description' => $merchant->category,
+            ],201);
+//            return $this->ok($merchant, MerchantTransformer::class);
         });
     }
 }

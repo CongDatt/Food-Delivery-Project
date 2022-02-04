@@ -15,7 +15,11 @@ class UpdateMerchantRequest extends BaseRequest
         return [
             'image' => 'sometimes|string',
             'merchant_name' => 'sometimes|string',
-            'address'       => 'sometimes',
+            'address'       => 'sometimes|string',
+            'email' => 'required|unique:users,email',
+            'password' => 'sometimes',
+            'category' => 'integer|between:0,5',
+            'description' => 'string',
         ];
     }
 }

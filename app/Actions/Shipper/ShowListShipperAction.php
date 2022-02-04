@@ -7,6 +7,7 @@ use App\Filters\ShipperFilter;
 use App\Models\Shipper;
 use App\Sorts\ShipperSort;
 use App\Transformers\ShipperTransformer;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 
 class ShowListShipperAction extends BaseAction
@@ -31,6 +32,11 @@ class ShowListShipperAction extends BaseAction
             ->filter($this->shipperFilter)
             ->sortBy($this->shipperSort);
 
-        return $this->ok($shipper, ShipperTransformer::class);
+        return response()->json([
+            'shipper_name' => $shipper->name,
+            'email'        => $shipper->email,
+            'phone'        => $shipper->phone,
+            'phone_plate'  => $shipper->phone_plate
+        ]);
     }
 }
