@@ -46,6 +46,7 @@ class CreateMerchantAction extends BaseAction
                 ->get());
 
             return response()->json([
+                'id'            => $merchant->id,
                 'merchant_name' => $merchant->merchant_name,
                 'address' =>$merchant->address,
                 'email' => $merchant->email,

@@ -25,7 +25,7 @@ class CreateDishAction extends BaseAction
                 'price' => $data['price'],
                 'desc' => $data['desc'],
                 'image' => $data['image'],
-                'merchant_id' => auth()->user()->id
+                'merchant_id' => (string) auth()->user()->id
             ]);
             return $this->ok($dish, DishTransformer::class);
         });

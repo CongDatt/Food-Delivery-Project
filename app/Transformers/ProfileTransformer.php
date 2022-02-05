@@ -35,7 +35,7 @@ class ProfileTransformer extends Transformer
     public function transform(User $user)
     {
         return [
-            'id'    => $user->id,
+            'id'    => (string)$user->id,
             'name'  => (string) $user->name,
             'email' => (string) $user->email,
             'is_merchant' => (string) $user->is_merchant,

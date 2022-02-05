@@ -132,9 +132,16 @@ class User extends Authenticatable implements JWTSubject
     // Relationships
     // ======================================================================
 
-        public function orders() {
-            return $this->hasMany(Order::class);
-        }
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 
+    /**
+     * Get the comments for the blog post.
+     */
+    public function dishes()
+    {
+        return $this->hasMany(Dish::class,'merchant_id');
+    }
 
 }

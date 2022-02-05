@@ -30,7 +30,7 @@ class ImageTransformer extends Transformer
     public function transform(Image $image)
     {
         return [
-            'id' => (int) $image->id,
+            'id' => (string) $image->id,
             'image_url' => (string) $image->image_url
         ];
     }

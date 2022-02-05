@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Builders\DishBuilder;
+use App\Models\Menu;
 use App\Traits\OverridesBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
-use App\Models\Menu;
 
 class Dish extends Model
 {
@@ -27,5 +27,13 @@ class Dish extends Model
 
     public function menus() {
         return $this->belongsToMany(Menu::class);
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

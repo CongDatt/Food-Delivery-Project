@@ -30,7 +30,7 @@ class DishTransformer extends Transformer
     public function transform(Dish $dish)
     {
         return [
-            'id' => (int) $dish->id,
+            'id' => (string) $dish->id,
             'dish_name' => (string) $dish->dish_name,
             'image' => (string) $dish->image,
             'price' => (string) $dish->price,

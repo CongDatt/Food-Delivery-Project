@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-//use App\Models\Merchant;
 use App\Models\User;
+use App\Models\Dish;
 use Flugg\Responder\Transformers\Transformer;
 
 class MerchantTransformer extends Transformer
@@ -14,7 +14,6 @@ class MerchantTransformer extends Transformer
      * @var string[]
      */
     protected $relations = [
-//        'user'        => User::class,
     ];
 
     /**
@@ -23,6 +22,7 @@ class MerchantTransformer extends Transformer
      * @var array
      */
     protected $load = [
+        'dishes'        => DishTransformer::class,
     ];
     /**
      * @param User $merchant
