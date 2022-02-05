@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CityController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\DistrictController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\AdminController;
@@ -40,6 +41,7 @@ Route::apiResource('merchant', MerchantController::class);
 Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('image', ImageController::class);
 Route::apiResource('dish', DishController::class);
+Route::apiResource('order', OrderController::class);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('users', UserController::class);

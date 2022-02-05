@@ -16,14 +16,21 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('quantity');
-            $table->integer('amount');
-            $table->boolean('status');
+            $table->string('shipper_id')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('merchant_id')->nullable();
+
+            $table->string('address')->nullable();
+            $table->string('address_note')->nullable();
+            $table->string('total_bill')->nullable();
+            $table->string('items')->nullable();
+            $table->string('item_cost')->nullable();
+            $table->integer('delivery_cost')->default(0);
 
 
-            $table->foreignId('shipper_id')->constrained('shippers')->cascadeOnDelete();
-            $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+//            $table->foreignId('shipper_id')->constrained('shippers')->cascadeOnDelete();
+//            $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
+//            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 
             $table->timestamps();
         });
