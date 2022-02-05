@@ -61,7 +61,7 @@ class MerchantController extends ApiController
             'merchant_name' => $merchant->merchant_name,
             'address'       => $merchant->address,
             'email'         => $merchant->email,
-            'category'      =>  $merchant->category,
+            'category'      =>  (int) $merchant->category,
             'image'         => $merchant->image,
             'description'   => $merchant->category,
         ]);

@@ -35,7 +35,7 @@ class MerchantTransformer extends Transformer
             'merchant_name' => (string) $merchant->merchant_name,
             'address' => (string) $merchant->address,
             'email' => (string) $merchant->email,
-            'category' => (string) $merchant->category,
+            'category' => (int) $merchant->category,
             'image' => (string) $merchant->image,
             'description' => (string) $merchant->category,
         ];
