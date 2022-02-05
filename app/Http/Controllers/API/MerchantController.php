@@ -43,15 +43,7 @@ class MerchantController extends ApiController
             ['is_merchant','=',1],
         ])->get();
 
-        return response()->json([
-            'id'            => (string) $merchant->id,
-            'merchant_name' => $merchant->merchant_name,
-            'address'       => $merchant->address,
-            'email'         => $merchant->email,
-            'category'      =>  $merchant->category,
-            'image'         => $merchant->image,
-            'description'   => $merchant->category,
-        ]);
+        return $this->ok($merchant, MerchantTransformer::class);
     }
 
     public function update(UpdateMerchantRequest $request, $id): JsonResponse
