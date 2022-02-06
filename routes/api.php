@@ -35,6 +35,7 @@ Route::prefix('auth')->group(function () {
         Route::delete('logout', [AuthController::class, 'logout']);
         Route::get('profile', [AuthController::class, 'me']);
         Route::get('merchant-profile', [MerchantController::class, 'me']);
+        Route::get('merchant', [AuthController::class, 'index']);
     });
 });
 Route::apiResource('merchant', MerchantController::class);

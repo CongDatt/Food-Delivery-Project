@@ -33,7 +33,15 @@ class OrderTransformer extends Transformer
     {
         return [
             'id' => (int) $order->id,
-            'merchant_id' => (int) $order->merchant_id,
+            'merchant' => [
+                'id' => (string) $order->merchant_id->id,
+                'merchant_name' => (string) $order->merchant_id->merchant_name,
+                'address' => (string) $order->merchant_id->address,
+                'email' => (string) $order->merchant_id->email,
+                'category' => (int) $order->merchant_id->category,
+                'image' => (string) $order->merchant_id->image,
+                'description' => (string) $order->merchant_id->category,
+            ],
             'address' => (string) $order->address,
             'delivery_cost' => (int) $order->delivery_cost,
             'items' => [

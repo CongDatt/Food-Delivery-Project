@@ -9,12 +9,18 @@ use App\Actions\Auth\LogoutAction;
 use App\Actions\Auth\RefreshTokenAction;
 use App\Actions\Auth\RegisterUserAction;
 use App\Actions\Auth\ShowProfileAction;
+use App\Actions\Merchant\ShowListMerchantAction;
 use App\Http\Requests\Auth\CheckLoginRequest;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\RegisterUserRequest;
 
 class AuthController extends ApiController
 {
+    public function index(ShowListMerchantAction $action):JsonResponse
+    {
+        return ($action)();
+    }
+
     /**
      * @param RegisterUserRequest $request
      * @param RegisterUserAction $action

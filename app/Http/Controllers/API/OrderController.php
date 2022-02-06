@@ -31,7 +31,8 @@ class OrderController extends ApiController
 
 //        $order->user_id = auth()->user()->id;
         $merchant = User::find($request->merchant_id);
-//        $order->merchant_id = ;
+        $order->merchant_id = $merchant;
+
         $order->delivery_cost = random_int(0,10000);
         $order->address = $request->address;
 
