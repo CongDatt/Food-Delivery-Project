@@ -44,9 +44,7 @@ class OrderTransformer extends Transformer
             ],
             'address' => (string) $order->address,
             'delivery_cost' => (int) $order->delivery_cost,
-            'items' => [
-                $order->items
-            ],
+            'items' => $order->items,
             'total_bill' => (int) $order->total_bill,
         ];
     }
