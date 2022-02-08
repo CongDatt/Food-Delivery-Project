@@ -33,6 +33,7 @@ class OrderTransformer extends Transformer
     {
         return [
             'id' => (int) $order->id,
+            'user_id' => (int) auth()->user()->id,
             'merchant' => [
                 'id' => (string) $order->merchant_id->id,
                 'merchant_name' => (string) $order->merchant_id->merchant_name,
