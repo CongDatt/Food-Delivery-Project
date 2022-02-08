@@ -13,7 +13,7 @@ class Order extends Model
     use HasFactory;
     protected $fillable = [
         'user_id', 'merchant_id', 'shipper_id', 'status',
-        'amount','address','address_note','total_bill', 'item_cost','delivery_cost', 'items'
+        'amount','address','address_note','total_bill', 'item_cost','delivery_cost', 'items', 'id_merchant'
     ];
 
     public function dishes() {

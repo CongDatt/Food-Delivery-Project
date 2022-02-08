@@ -19,6 +19,11 @@ class OrderController extends ApiController
             return $this->ok($orders, OrderTransformer::class);
         }
 
+        if(Order::where('id_merchant', auth()->user()->id)->get()) {
+            $orders = Order::where('id_merchant', auth()->user()->id)->get();
+            return $this->ok($orders, OrderTransformer::class);
+        }
+
         $orders = Order::where('user_id', auth()->user()->id)->get();
         return $this->ok($orders, OrderTransformer::class);
     }
@@ -31,6 +36,8 @@ class OrderController extends ApiController
         $order->user_id = auth()->user()->id;
         $merchant = User::find($request->merchant_id);
         $order->merchant_id = $merchant;
+
+        $order->id_merchant = $request->merchant_id;
 
         $order->delivery_cost = random_int(0,10000);
         $order->address = $request->address;
