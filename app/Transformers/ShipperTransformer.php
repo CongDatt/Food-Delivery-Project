@@ -19,7 +19,9 @@ class ShipperTransformer extends Transformer
      *
      * @var array
      */
-    protected $load = [];
+    protected $load = [
+        'roles'       => RoleTransformer::class,
+    ];
 
     /**
      * @param User $shipper
