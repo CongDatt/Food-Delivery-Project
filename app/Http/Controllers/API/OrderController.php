@@ -23,7 +23,7 @@ class OrderController extends ApiController
             $orders = Order::all();
             return $this->ok($orders, OrderTransformer::class);
         }
-        
+
         $orders = Order::where('user_id', auth()->user()->id)->get();
         return $this->ok($orders, OrderTransformer::class);
     }

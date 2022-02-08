@@ -47,6 +47,7 @@ class OrderTransformer extends Transformer
             'delivery_cost' => (int) $order->delivery_cost,
             'items' => $order->items,
             'total_bill' => (int) $order->total_bill,
+            'createAt' => (string) $order->created_at,
         ];
     }
 }
