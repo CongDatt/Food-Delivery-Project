@@ -36,6 +36,7 @@ Route::prefix('auth')->group(function () {
         Route::get('profile', [AuthController::class, 'me']);
         Route::get('merchant-profile', [MerchantController::class, 'me']);
         Route::get('merchant', [AuthController::class, 'index']);
+        Route::get('merchant/{id}', [AuthController::class, 'show']);
     });
 });
 Route::apiResource('merchant', MerchantController::class);

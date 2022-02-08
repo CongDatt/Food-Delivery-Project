@@ -11,6 +11,8 @@ use App\Actions\Auth\RegisterUserAction;
 use App\Actions\Auth\ShowProfileAction;
 use App\Actions\Merchant\ShowListMerchantAction;
 use App\Http\Requests\Auth\CheckLoginRequest;
+use App\Models\User;
+use App\Transformers\MerchantTransformer;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\RegisterUserRequest;
 
@@ -21,7 +23,16 @@ class AuthController extends ApiController
         return ($action)();
     }
 
-    /**
+    public function show($id) {
+        $merchant = User::where([
+            ['id','=',$id],
+            ['is_merchant','=',1],
+        ])->get();
+
+        return $this->ok($merchant, MerchantTransformer::class);
+    }
+
+        /**
      * @param RegisterUserRequest $request
      * @param RegisterUserAction $action
      * @return JsonResponse
