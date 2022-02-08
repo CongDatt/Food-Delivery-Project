@@ -23,9 +23,10 @@ class CreateOrdersTable extends Migration
             $table->string('address')->nullable();
             $table->string('address_note')->nullable();
             $table->string('total_bill')->nullable();
-            $table->string('items')->nullable();
+            $table->string('items',1600)->nullable();
             $table->string('item_cost')->nullable();
             $table->integer('delivery_cost')->default(0);
+            $table->integer('status')->default(0);
 
 
 //            $table->foreignId('shipper_id')->constrained('shippers')->cascadeOnDelete();

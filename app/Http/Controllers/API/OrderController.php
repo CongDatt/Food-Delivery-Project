@@ -6,23 +6,18 @@ use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Merchant;
 use App\Models\Order;
 use App\Models\User;
-use App\Models\Menu;
-use App\Models\Dish;
-use App\Models\Shipper;
 use App\Transformers\OrderTransformer;
-use http\Env\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends ApiController
 {
 
     public function index(): \Illuminate\Http\JsonResponse
     {
-        if(auth()->user()->id === 1) {
-            $orders = Order::all();
-            return $this->ok($orders, OrderTransformer::class);
-        }
+//        if(auth()->user()->id === 1) {
+//            $orders = Order::all();
+//            return $this->ok($orders, OrderTransformer::class);
+//        }
 
         $orders = Order::where('user_id', auth()->user()->id)->get();
         return $this->ok($orders, OrderTransformer::class);
@@ -41,6 +36,7 @@ class OrderController extends ApiController
         $order->address = $request->address;
 
         $total_bill = 0;
+        $order->status = 0;
         $string_item = [];
 
         foreach ($request->items as $item) {
@@ -49,10 +45,9 @@ class OrderController extends ApiController
         }
 
         $order->total_bill = $total_bill + $order->delivery_cost;
+        $order->items =  json_encode($string_item);
+
         $order->save();
-
-        $order->items = $string_item;
-
         return $this->ok($order, OrderTransformer::class);
     }
 

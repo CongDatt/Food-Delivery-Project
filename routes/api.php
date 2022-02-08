@@ -43,11 +43,11 @@ Route::apiResource('merchant', MerchantController::class);
 Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('image', ImageController::class);
 Route::apiResource('dish', DishController::class);
-Route::apiResource('order', OrderController::class);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('order', OrderController::class);
     Route::apiResource('permissions', PermissionController::class);
 });
 
