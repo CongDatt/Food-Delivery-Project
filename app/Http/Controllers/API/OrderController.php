@@ -14,10 +14,10 @@ class OrderController extends ApiController
 
     public function index(): \Illuminate\Http\JsonResponse
     {
-//        if(auth()->user()->id === 1) {
-//            $orders = Order::all();
-//            return $this->ok($orders, OrderTransformer::class);
-//        }
+        if(auth()->user()->id === 1) {
+            $orders = Order::all();
+            return $this->ok($orders, OrderTransformer::class);
+        }
 
         $orders = Order::where('user_id', auth()->user()->id)->get();
         return $this->ok($orders, OrderTransformer::class);
