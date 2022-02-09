@@ -33,10 +33,9 @@ class OrderTransformer extends Transformer
     {
         return [
             'id' => (int) $order->id,
-            'user_id' => (int) auth()->user()->id,
+            'user_id' => (int) $order->user->id,
             'payment_method' => (int) $order->payment_method,
             'item_cost' => (int) $order->item_cost,
-
             'status' => (int) $order->status,
             'merchant' => [
                 'id' => (string) json_decode($order->merchant_id)->id,
@@ -56,12 +55,12 @@ class OrderTransformer extends Transformer
                 'phone_plate' => null
             ],
             'user' => [
-                'id'    => (string) auth()->user()->id,
-                'name'  => (string) auth()->user()->name,
-                'email' => (string) auth()->user()->email,
-                'phone' => (string) auth()->user()->phone,
-                'gender' => (string) auth()->user()->gender,
-                'address' => (string) auth()->user()->address,
+                'id'    => (string) $order->user->id,
+                'name'  => (string) $order->user->name,
+                'email' => (string) $order->user->email,
+                'phone' => (string) $order->user->phone,
+                'gender' => (string) $order->user->gender,
+                'address' => (string) $order->user->address,
             ],
             'address' => (string) $order->address,
             'delivery_cost' => (int) $order->delivery_cost,

@@ -39,6 +39,7 @@ Route::prefix('auth')->group(function () {
         Route::get('merchant/{id}', [AuthController::class, 'show']);
     });
 });
+Route::get('get-order', [ShipperController::class, 'getOrder']);
 Route::apiResource('merchant', MerchantController::class);
 Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('image', ImageController::class);

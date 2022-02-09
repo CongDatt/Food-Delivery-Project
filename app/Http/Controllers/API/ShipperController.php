@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\Shipper\UpdateShipperRequest;
+use App\Models\Order;
 use App\Models\Role;
 use App\Models\User;
+use App\Transformers\OrderTransformer;
 use App\Transformers\ShipperTransformer;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Shipper\ShowDetailShipperAction;
@@ -14,6 +16,7 @@ use App\Actions\Shipper\DeleteShipperAction;
 use App\Actions\Shipper\CreateShipperAction;
 
 use App\Http\Requests\Shipper\CreateShipperRequest;
+use Illuminate\Http\Request;
 
 class ShipperController extends ApiController
 {
@@ -67,5 +70,22 @@ class ShipperController extends ApiController
 
     public function me() {
         return $this->success(auth()->user(), ShipperTransformer::class)->respond(JsonResponse::HTTP_OK);
+    }
+
+
+    public function getOrder (Request $request)
+    {
+        $orders = Order::all();
+        return $this->ok($orders, OrderTransformer::class);
+//        if($request->input('status') === 1) {
+//            $orders = Order::where('status', $request->input('status'))->get();
+//            return $this->ok($orders, OrderTransformer::class);
+//        }
+//        else {
+//            if(auth()->user()->is_shipper === 1) {
+//                $orders = Order::where('id_shipper', auth()->user()->id)->get();
+//                return $this->ok($orders, OrderTransformer::class);
+//            }
+//        }
     }
 }
