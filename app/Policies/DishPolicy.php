@@ -21,7 +21,7 @@ class DishPolicy extends BasePolicy
     }
 
 
-    public function view(User $current, Role $role): bool
+    public function view(User $current): bool
     {
         return $this->author($current, PermissionType::VIEW_DISH);
     }
