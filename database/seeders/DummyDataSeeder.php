@@ -30,9 +30,6 @@ class DummyDataSeeder extends Seeder
         // assign admin role to admin
         $admin->syncRoles(Role::where('name', RoleType::ADMIN)->first());
 
-        User::factory(5)->create()->each(function ($staff){
-            $staff->syncRoles(Role::where('name', 'merchant')->first());
-        });
-        User::factory(5)->create();
+
     }
 }
