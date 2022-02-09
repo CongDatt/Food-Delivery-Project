@@ -14,22 +14,38 @@ class OrderController extends ApiController
 
     public function index(Request $request): \Illuminate\Http\JsonResponse
     {
-        if($request->input('status') !== null) {
-            $orders = Order::where('status', $request->input('status'))->get();
-            return $this->ok($orders, OrderTransformer::class);
+        if($request->input('status')) {
+            if(auth()->user()->id === 1) {
+                $orders = Order::where('status', $request->input('status'));
+                return $this->ok($orders, OrderTransformer::class);
+            }
+            elseif (auth()->user()->is_merchant === 1) {
+                $orders = Order::where('id_merchant', auth()->user()->id)
+                    ->where('status', $request->input('status'))
+                    ->get();
+                return $this->ok($orders, OrderTransformer::class);
+            }
+            else {
+                $orders = Order::where('user_id', auth()->user()->id)
+                    ->where('status', $request->input('status'))
+                    ->get();
+                return $this->ok($orders, OrderTransformer::class);
+            }
         }
-        if(auth()->user()->id === 1) {
-            $orders = Order::all();
-            return $this->ok($orders, OrderTransformer::class);
+        else {
+            if(auth()->user()->id === 1) {
+                $orders = Order::all();
+                return $this->ok($orders, OrderTransformer::class);
+            }
+            elseif (auth()->user()->is_merchant === 1) {
+                $orders = Order::where('id_merchant', auth()->user()->id)->get();
+                return $this->ok($orders, OrderTransformer::class);
+            }
+            else {
+                $orders = Order::where('user_id', auth()->user()->id)->get();
+                return $this->ok($orders, OrderTransformer::class);
+            }
         }
-
-        if(Order::where('id_merchant', auth()->user()->id)->get()) {
-            $orders = Order::where('id_merchant', auth()->user()->id)->get();
-            return $this->ok($orders, OrderTransformer::class);
-        }
-
-        $orders = Order::where('user_id', auth()->user()->id)->get();
-        return $this->ok($orders, OrderTransformer::class);
     }
 
 
