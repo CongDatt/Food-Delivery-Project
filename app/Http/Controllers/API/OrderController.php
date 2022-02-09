@@ -12,8 +12,12 @@ use Illuminate\Http\Request;
 class OrderController extends ApiController
 {
 
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(Request $request): \Illuminate\Http\JsonResponse
     {
+        if($request->input('status') !== null) {
+            $orders = Order::where('status', $request->input('status'))->get();
+            return $this->ok($orders, OrderTransformer::class);
+        }
         if(auth()->user()->id === 1) {
             $orders = Order::all();
             return $this->ok($orders, OrderTransformer::class);
