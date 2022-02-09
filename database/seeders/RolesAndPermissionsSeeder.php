@@ -50,6 +50,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'merchant_name' => 'merchant example',
             'email' => 'merchant@gmail.com',
             'password' => '123456',
+            'is_merchant' => 1,
             'address' => 'Quan 7'
         ]);
         $merchant->assignRole($merchantRole);

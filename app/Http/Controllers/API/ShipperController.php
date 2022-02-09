@@ -73,19 +73,21 @@ class ShipperController extends ApiController
     }
 
 
-    public function getOrder (Request $request)
+    public function getOrderList (Request $request)
     {
-        $orders = Order::all();
-        return $this->ok($orders, OrderTransformer::class);
-//        if($request->input('status') === 1) {
-//            $orders = Order::where('status', $request->input('status'))->get();
-//            return $this->ok($orders, OrderTransformer::class);
-//        }
-//        else {
-//            if(auth()->user()->is_shipper === 1) {
-//                $orders = Order::where('id_shipper', auth()->user()->id)->get();
-//                return $this->ok($orders, OrderTransformer::class);
-//            }
-//        }
+        if($request->input('status') === 1) {
+            $orders = Order::where('status', $request->input('status'))->get();
+            return $this->ok($orders, OrderTransformer::class);
+        }
+        elseif ($request->input('status') !== 1) {
+            $orders = Order::where('status', $request->input('status'))
+                ->where('shipper_id', auth()->user()->id)
+                ->get();
+            return $this->ok($orders, OrderTransformer::class);
+        }
+        else {
+            $orders = Order::where('shipper_id', auth()->user()->id)->get();
+            return $this->ok($orders, OrderTransformer::class);
+        }
     }
 }

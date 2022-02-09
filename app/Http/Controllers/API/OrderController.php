@@ -90,15 +90,13 @@ class OrderController extends ApiController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Order $order
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order->status = $request->status;
+        return $this->ok($order, OrderTransformer::class);
     }
 
     /**
