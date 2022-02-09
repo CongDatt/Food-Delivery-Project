@@ -74,6 +74,7 @@ class OrderController extends ApiController
         $order->total_bill = $total_bill + $order->delivery_cost;
         $order->items =  json_encode($string_item);
 
+        $order->item_cost = $order->total_bill - $order->delivery_cost;
         $order->save();
         return $this->ok($order, OrderTransformer::class);
     }

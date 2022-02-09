@@ -59,5 +59,21 @@ class RolesAndPermissionsSeeder extends Seeder
                     ->orWhere('name', 'like', 'UPDATE-DISH')
                     ->orWhere('name', 'like', 'DELETE-DISH')
                     ->get());
+
+        // Create user role
+        $userRole = Role::updateOrCreate([
+            'name'         => 'user',
+            'display_name' => 'USER',
+        ]);
+        $user = User::create([
+            'email'             => 'congdat@gmail.com',
+            'name'              => 'Cong Dat',
+            'password'          => '123456',
+            'phone'             => null,
+            'gender'            => null,
+            'date_of_birth'     => null,
+            'remember_token'    => Str::random(10),
+        ]);
+        $user->assignRole($userRole);
     }
 }
