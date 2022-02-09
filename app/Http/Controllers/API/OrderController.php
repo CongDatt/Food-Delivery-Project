@@ -59,14 +59,13 @@ class OrderController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return $this->ok($order, OrderTransformer::class);
     }
 
     /**
