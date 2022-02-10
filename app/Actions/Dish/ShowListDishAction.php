@@ -27,9 +27,7 @@ class ShowListDishAction extends BaseAction
      */
     public function __invoke(): JsonResponse
     {
-        $dish = Dish::query()
-            ->filter($this->dishFilter)
-            ->sortBy($this->dishSort);
+        $dish = Dish::where('merchant_id' , auth()->user()->id)->get();
 
         return $this->ok($dish, DishTransformer::class);
     }

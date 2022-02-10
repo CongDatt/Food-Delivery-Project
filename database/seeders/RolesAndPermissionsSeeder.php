@@ -46,20 +46,35 @@ class RolesAndPermissionsSeeder extends Seeder
             'name'         => 'merchant',
             'display_name' => 'MERCHANT',
         ]);
-        $merchant = User::create([
+        $merchant1 = User::create([
             'merchant_name' => 'merchant example',
-            'email' => 'merchant@gmail.com',
+            'email' => 'merchant1@gmail.com',
             'password' => '123456',
             'is_merchant' => 1,
             'address' => 'Quan 7'
         ]);
-        $merchant->assignRole($merchantRole);
+        $merchant1->assignRole($merchantRole);
         $merchantRole->syncPermissions(Permission::query()
                     ->where('name', 'like', 'VIEW-DISH')
                     ->orWhere('name', 'like', 'CREATE_DISH')
                     ->orWhere('name', 'like', 'UPDATE-DISH')
                     ->orWhere('name', 'like', 'DELETE-DISH')
                     ->get());
+
+        $merchant2 = User::create([
+            'merchant_name' => 'merchant example',
+            'email' => 'merchant2@gmail.com',
+            'password' => '123456',
+            'is_merchant' => 1,
+            'address' => 'Quan 7'
+        ]);
+        $merchant2->assignRole($merchantRole);
+        $merchantRole->syncPermissions(Permission::query()
+            ->where('name', 'like', 'VIEW-DISH')
+            ->orWhere('name', 'like', 'CREATE_DISH')
+            ->orWhere('name', 'like', 'UPDATE-DISH')
+            ->orWhere('name', 'like', 'DELETE-DISH')
+            ->get());
 
         // Create user role
         $userRole = Role::updateOrCreate([
