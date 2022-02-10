@@ -116,8 +116,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'email'             => 'shipper@gmail.com',
             'name'              => 'Dat Shipper',
             'password'          => '123456',
-            'phone'             => null,
+            'phone'             => '0396422329',
             'gender'            => null,
+            'is_shipper'        => 1,
             'date_of_birth'     => null,
             'remember_token'    => Str::random(10),
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\Order\CreateOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Merchant;
 use App\Models\Order;
 use App\Models\User;
@@ -90,19 +91,29 @@ class OrderController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param UpdateOrderRequest $request
      * @param Order $order
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order->shipper_id = auth()->user()->id;
+        if(auth()->user()->is_shipper === 1) {
+            $order->shipper_id = auth()->user()->id;
+            $shipper = User::find(auth()->user()->id);
+            $order->shipper_info = $shipper;
+            $order->status = $request->status;
 
-        $shipper = User::find(auth()->user()->id);
-        $order->shipper_info = $shipper;
-
-        $order->status = $request->status;
-        $order->save();
-        return $this->ok($order, OrderTransformer::class);
+            $order->save();
+            return $this->ok($order, OrderTransformer::class);
+        }
+        else {
+            $shipper = User::find($order->shipper_id);
+            $order->shipper_info = $shipper;
+            $order->update([
+                'status' => $request->status
+            ]);
+            return $this->ok($order, OrderTransformer::class);
+        }
     }
 
     /**
