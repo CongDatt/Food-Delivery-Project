@@ -96,6 +96,7 @@ class OrderController extends ApiController
     public function update(Request $request, Order $order)
     {
         $order->status = $request->status;
+        $order->save();
         return $this->ok($order, OrderTransformer::class);
     }
 
