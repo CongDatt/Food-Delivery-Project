@@ -81,7 +81,6 @@ class ShipperController extends ApiController
         }
         elseif ($request->input('status') !== 1) {
             $orders = Order::where('status', $request->input('status'))
-                ->where('shipper_id', auth()->user()->id)
                 ->get();
             return $this->ok($orders, OrderTransformer::class);
         }
