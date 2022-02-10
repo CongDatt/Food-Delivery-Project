@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('id_merchant')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('merchant_id', 1600)->nullable();
+            $table->string('shipper_info', 1600)->nullable();
 
             $table->string('address')->nullable();
             $table->string('address_note')->nullable();

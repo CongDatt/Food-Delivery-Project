@@ -19,9 +19,9 @@ class CheckLoginRequest extends BaseRequest
     public function rules(): array
     {
         return [
-//            'guard'    => ['required', Rule::in(RoleType::asArray())],
             'username' => ['required'],
             'password' => ['required'],
+            'divice_token' => 'string|required'
         ];
     }
 }

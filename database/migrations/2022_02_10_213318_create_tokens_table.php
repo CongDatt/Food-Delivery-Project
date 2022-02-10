@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotisTable extends Migration
+class CreateTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateNotisTable extends Migration
      */
     public function up()
     {
-        Schema::create('notis', function (Blueprint $table) {
+        Schema::create('tokens', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
-            $table->string('title')->nullable();
-            $table->string('message')->nullable();
+            $table->string('device_token')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateNotisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notis');
+        Schema::dropIfExists('tokens');
     }
 }

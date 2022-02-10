@@ -4,6 +4,8 @@ namespace App\Actions\Auth;
 
 use App\Actions\BaseAction;
 use App\Enums\RoleType;
+use App\Models\Token;
+use App\Models\User;
 use Flugg\Responder\Exceptions\Http\PageNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -21,6 +23,14 @@ class LoginAction extends BaseAction
      */
     public function __invoke($credentials): JsonResponse
     {
+        $user = User::where('email', $credentials['username'])->first();
+        $token = Token::updateOrCreate(
+        [
+            'user_id' => $user->id,
+        ],
+        [
+            'device_token' => $credentials['divice_token']
+        ]);
         return $this->execute($credentials);
     }
 

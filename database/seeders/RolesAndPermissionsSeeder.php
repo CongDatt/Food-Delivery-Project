@@ -105,5 +105,22 @@ class RolesAndPermissionsSeeder extends Seeder
             'remember_token'    => Str::random(10),
         ]);
         $user->assignRole($userRole);
+
+
+        // Create user role
+        $userRole = Role::updateOrCreate([
+            'name'         => 'shipper',
+            'display_name' => 'SHIPPER',
+        ]);
+        $user = User::create([
+            'email'             => 'shipper@gmail.com',
+            'name'              => 'Dat Shipper',
+            'password'          => '123456',
+            'phone'             => null,
+            'gender'            => null,
+            'date_of_birth'     => null,
+            'remember_token'    => Str::random(10),
+        ]);
+        $user->assignRole($userRole);
     }
 }

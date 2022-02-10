@@ -95,6 +95,11 @@ class OrderController extends ApiController
      */
     public function update(Request $request, Order $order)
     {
+        $order->shipper_id = auth()->user()->id;
+
+        $shipper = User::find(auth()->user()->id);
+        $order->shipper_info = $shipper;
+
         $order->status = $request->status;
         $order->save();
         return $this->ok($order, OrderTransformer::class);
