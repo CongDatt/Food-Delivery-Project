@@ -18,18 +18,6 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
-            'email'             => null,
-            'name'              => 'admin',
-            'password'          => '123456',
-            'phone'             => null,
-            'gender'            => null,
-            'date_of_birth'     => null,
-            'remember_token'    => Str::random(10),
-        ]);
-        // assign admin role to admin
-        $admin->syncRoles(Role::where('name', RoleType::ADMIN)->first());
-
 
     }
 }

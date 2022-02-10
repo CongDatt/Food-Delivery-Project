@@ -41,6 +41,20 @@ class RolesAndPermissionsSeeder extends Seeder
         ]);
         $adminRole->syncPermissions(Permission::all());
 
+        $admin = User::create([
+            'email'             => null,
+            'name'              => 'admin',
+            'password'          => '123456',
+            'phone'             => null,
+            'gender'            => null,
+            'date_of_birth'     => null,
+            'remember_token'    => Str::random(10),
+        ]);
+        // assign admin role to admin
+        $admin->syncRoles(Role::where('name', RoleType::ADMIN)->first());
+
+
+
         // Create merchant role
         $merchantRole = Role::updateOrCreate([
             'name'         => 'merchant',

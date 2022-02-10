@@ -13,8 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(DummyDataSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
-//        $this->call(CityDataSeeder::class);
+        $this->call(DummyDataSeeder::class);
     }
 }
