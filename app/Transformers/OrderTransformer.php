@@ -47,12 +47,12 @@ class OrderTransformer extends Transformer
                 'description' => (string) json_decode($order->merchant_id)->category,
             ],
             'shipper' => [
-                'id'           => $order->shipper_info->id ?? null,
-                'shipper_name' => $order->shipper_info->name ?? null,
-                'email' => $order->shipper_info->email ?? null,
-                'image' => $order->shipper_info->image ?? null,
-                'phone' => $order->shipper_info->phone ?? null,
-                'phone_plate' => $order->shipper_info->plate ?? null
+                'id'           => json_decode($order->shipper_info)->id?? null,
+                'shipper_name' => json_decode($order->shipper_info)->name ?? null,
+                'email' => json_decode($order->shipper_info)->email ?? null,
+                'image' => json_decode($order->shipper_info)->image ?? null,
+                'phone' => json_decode($order->shipper_info)->phone ?? null,
+                'phone_plate' => json_decode($order->shipper_info)->phone_plate ?? null
             ],
             'user' => [
                 'id'    => (string) $order->user->id,

@@ -99,8 +99,8 @@ class OrderController extends ApiController
     {
         if(auth()->user()->is_shipper === 1) {
             $order->shipper_id = auth()->user()->id;
-            $shipper = User::find(auth()->user()->id);
-            $order->shipper_info = $shipper;
+            $shipper = User::find(auth()->user()->id)->toArray();
+            $order->shipper_info = json_encode($shipper);
             $order->status = $request->status;
 
             $order->save();
@@ -109,9 +109,8 @@ class OrderController extends ApiController
         else {
             $shipper = User::find($order->shipper_id);
             $order->shipper_info = $shipper;
-            $order->update([
-                'status' => $request->status
-            ]);
+            $order->status = $request->status;
+            $order->save();
             return $this->ok($order, OrderTransformer::class);
         }
     }
