@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Merchant;
+use App\Models\Token;
+use Kutia\Larafirebase\Facades\Larafirebase;
 use App\Models\Order;
 use App\Models\User;
 use App\Transformers\OrderTransformer;
@@ -77,6 +79,19 @@ class OrderController extends ApiController
 
         $order->item_cost = $order->total_bill - $order->delivery_cost;
         $order->save();
+
+        // push notification to merchant
+        $merchantGetNoti = Token::where('user_id', $order->id_merchant)->first();
+        $merchantToken = $merchantGetNoti->device_token;
+        $userPhone = auth()->user()->phone;
+        $timeOrder = $order->created_at->format('H:i, Y-m-d');
+
+        Larafirebase::withTitle('New order')
+            ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
+            ->sendNotification($merchantToken);
+
+
+
         return $this->ok($order, OrderTransformer::class);
     }
 
