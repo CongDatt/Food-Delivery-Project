@@ -42,7 +42,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->syncPermissions(Permission::all());
 
         $admin = User::create([
-            'email'             => null,
+            'email'             => 'admin@gmail.com',
             'name'              => 'admin',
             'password'          => '123456',
             'phone'             => null,
