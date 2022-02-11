@@ -37,7 +37,7 @@ class LoginAction extends BaseAction
             );
         }
         else {
-            $token_2 = Token::updateOrCreate(
+            $token = Token::updateOrCreate(
                 [
                     'device_token' => $credentials['divice_token'],
                 ],
@@ -45,7 +45,11 @@ class LoginAction extends BaseAction
                     'user_id' => $user->id,
                 ]);
         }
-        
+        if($user->is_shipper == 1) {
+            $token->is_shipper = 1;
+            $token->save();
+        }
+
         return $this->execute($credentials);
     }
 

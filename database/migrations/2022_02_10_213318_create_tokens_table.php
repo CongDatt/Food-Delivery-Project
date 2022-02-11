@@ -16,6 +16,7 @@ class CreateTokensTable extends Migration
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
+            $table->integer('is_shipper')->default(0);
             $table->string('device_token')->nullable();
             $table->timestamps();
         });
