@@ -216,15 +216,16 @@ class OrderController extends ApiController
                     array_push($tokens, $token['device_token']);
                 }
 
-                $noti = new Noti();
-                $noti->title = 'New Order';
-                $noti->message = "New order is preparing";
-                $noti->user_id = $order->shipper_id;
-                $noti->save();
-
                 $title = [];
                 $body = [];
                 for($i = 0; $i < count($tokens); $i++){
+                    
+                    $noti = new Noti();
+                    $noti->title = 'New Order';
+                    $noti->message = "New order is preparing";
+                    $noti->user_id = $order->shipper_id;
+                    $noti->save();
+
                     array_push($title, "New Order");
                     array_push($body, "Your order (.$order->id.) is preparing");
                 }
@@ -250,7 +251,7 @@ class OrderController extends ApiController
                 $noti->message = "User have received order $order->id";
                 $noti->user_id = $order->shipper_id;
                 $noti->save();
-                
+
                 // to Merchant
                 $merchantGetNoti = Token::where('user_id', $order->id_merchant)->first();
                 $merchantToken = $merchantGetNoti->device_token;
