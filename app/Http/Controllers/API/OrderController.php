@@ -119,6 +119,7 @@ class OrderController extends ApiController
             $order->status = $request->status;
 
             $order->save();
+
             return $this->ok($order, OrderTransformer::class);
         }
         else {
@@ -126,6 +127,7 @@ class OrderController extends ApiController
             $order->shipper_info = $shipper;
             $order->status = $request->status;
             $order->save();
+
             return $this->ok($order, OrderTransformer::class);
         }
     }

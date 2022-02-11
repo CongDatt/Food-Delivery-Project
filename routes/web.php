@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/', function () {
-//    Larafirebase::withTitle('Công Đạt title')->withBody('Công Đạt đã đăng noti')->sendNotification('cgzVr_ckyU5-6yzpZmKMFg:APA91bESF9-LC2atY1f2dtjlcGnhHj996al1QvwwLnU4IAXxlPQxWHMlsLL8oC-QuITs_bO3YQZY30hoKpTyvySikls_ZfESB94ybUWIKH0qktGxS7C4bF9syIRU74MPM8vJVBuCuyuO');
-//});
+Route::get('/', function () {
+    $token = 'cgzVr_ckyU5-6yzpZmKMFg:APA91bESF9-LC2atY1f2dtjlcGnhHj996al1QvwwLnU4IAXxlPQxWHMlsLL8oC-QuITs_bO3YQZY30hoKpTyvySikls_ZfESB94ybUWIKH0qktGxS7C4bF9syIRU74MPM8vJVBuCuyuO';
+    Larafirebase::withTitle('test token 2')->withBody('Công Đạt đã đăng noti')->sendNotification($token);
+});
 Route::get('login/{driver}',[SocialLoginController::class, 'redirectToSocial']);

@@ -24,13 +24,28 @@ class LoginAction extends BaseAction
     public function __invoke($credentials): JsonResponse
     {
         $user = User::where('email', $credentials['username'])->first();
-        $token = Token::updateOrCreate(
-        [
-            'user_id' => $user->id,
-        ],
-        [
-            'device_token' => $credentials['divice_token']
-        ]);
+        $tokenFinded = Token::where('device_token', $credentials['divice_token'])->first();
+
+        if($tokenFinded === null) {
+            $token = Token::updateOrCreate(
+                [
+                    'user_id' => $user->id,
+                ],
+                [
+                    'device_token' => $credentials['divice_token'],
+                ]
+            );
+        }
+        else {
+            $token_2 = Token::updateOrCreate(
+                [
+                    'device_token' => $credentials['divice_token'],
+                ],
+                [
+                    'user_id' => $user->id,
+                ]);
+        }
+        
         return $this->execute($credentials);
     }
 
