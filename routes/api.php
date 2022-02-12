@@ -8,6 +8,7 @@ use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\NotiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\MerchantController;
 use App\Http\Controllers\API\ShipperController;
@@ -40,6 +41,7 @@ Route::prefix('auth')->group(function () {
     });
 });
 Route::get('get-order', [ShipperController::class, 'getOrderList'])->middleware('auth');
+Route::apiResource('notification', NotiController::class)->middleware('auth');
 Route::apiResource('merchant', MerchantController::class);
 Route::apiResource('shipper', ShipperController::class);
 Route::apiResource('image', ImageController::class);

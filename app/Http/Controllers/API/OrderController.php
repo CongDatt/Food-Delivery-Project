@@ -219,7 +219,7 @@ class OrderController extends ApiController
                 $title = [];
                 $body = [];
                 for($i = 0; $i < count($tokens); $i++){
-                    
+
                     $noti = new Noti();
                     $noti->title = 'New Order';
                     $noti->message = "New order is preparing";

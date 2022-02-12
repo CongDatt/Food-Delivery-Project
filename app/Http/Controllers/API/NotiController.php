@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Requests\UpdateNotiRequest;
 use App\Models\Noti;
+use App\Models\Order;
+use App\Transformers\NotiTransformer;
+use App\Transformers\OrderTransformer;
 use Illuminate\Http\Request;
 
-class NotiController extends Controller
+class NotiController extends ApiController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        if(auth()->user()->id === 1) {
+            return $this->ok(Noti::all(),NotiTransformer::class);
+        }
+        else{
+            $notifications = Noti::where('user_id', auth()->user()->id)->get();
+            return $this->ok($notifications, NotiTransformer::class);
+        }
     }
 
     /**
@@ -50,26 +58,19 @@ class NotiController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Noti  $noti
-     * @return \Illuminate\Http\Response
+     * @param UpdateNotiRequest $request
+     * @param Noti $noti
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Noti $noti)
+    public function update(UpdateNotiRequest $request, $id)
     {
-        //
-    }
+        $noti =  Noti::findOrFail($id);
+        if($noti) {
+            $noti->status = $request->status;
+            $noti->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Noti  $noti
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Noti $noti)
-    {
-        //
+            return $this->ok($noti, NotiTransformer::class);
+        }
     }
 
     /**

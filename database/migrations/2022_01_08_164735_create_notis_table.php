@@ -16,6 +16,7 @@ class CreateNotisTable extends Migration
         Schema::create('notis', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
+            $table->integer('status')->default(0);
             $table->string('title')->nullable();
             $table->string('message')->nullable();
             $table->timestamps();
