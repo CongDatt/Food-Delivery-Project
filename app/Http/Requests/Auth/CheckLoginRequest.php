@@ -21,7 +21,7 @@ class CheckLoginRequest extends BaseRequest
         return [
             'username' => ['required'],
             'password' => ['required'],
-            'divice_token' => 'string|required'
+            'divice_token' => 'string'
         ];
     }
 }

@@ -87,15 +87,17 @@ class OrderController extends ApiController
         $userPhone = auth()->user()->phone;
         $timeOrder = $order->created_at->format('H:i, Y-m-d');
 
-        $noti = new Noti();
-        $noti->title = 'New order';
-        $noti->message = "You have a new order from $userPhone at $timeOrder.";
-        $noti->user_id = $order->id_merchant;
-        $noti->save();
+        if($merchantToken) {
+            $noti = new Noti();
+            $noti->title = 'New order';
+            $noti->message = "You have a new order from $userPhone at $timeOrder.";
+            $noti->user_id = $order->id_merchant;
+            $noti->save();
 
-        Larafirebase::withTitle('New order')
-            ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
-            ->sendNotification($merchantToken);
+            Larafirebase::withTitle('New order')
+                ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
+                ->sendNotification($merchantToken);
+        }
 
         return $this->ok($order, OrderTransformer::class);
     }
@@ -132,26 +134,29 @@ class OrderController extends ApiController
                 $merchantGetNoti = Token::where('user_id', $order->id_merchant)->first();
                 $merchantToken = $merchantGetNoti->device_token;
 
-                $noti = new Noti();
-                $noti->title = 'Order Delivering';
-                $noti->message =  "Order $order->id is being delivered.";
-                $noti->user_id = $order->user_id;
-                $noti->save();
-
                 // to User
                 $userGetNoti = Token::where('user_id', $order->user_id)->first();
                 $userToken = $userGetNoti->device_token;
 
-                $noti = new Noti();
-                $noti->title = 'Order Delivered';
-                $noti->message =  "Shipper have  delivered  order $order->id";
-                $noti->user_id = $order->user_id;
-                $noti->save();
+                if($merchantToken && $userToken) {
 
-                // push noti
-                Larafirebase::withTitle(['Order Delivering','Order Delivered'])
-                    ->withBody(["Order $order->id is being delivered.","Shipper have  delivered  order $order->id"])
-                    ->sendNotification([$merchantToken ,$userToken]);
+                    $noti = new Noti();
+                    $noti->title = 'Order Delivering';
+                    $noti->message =  "Order $order->id is being delivered.";
+                    $noti->user_id = $order->user_id;
+                    $noti->save();
+
+                    $noti = new Noti();
+                    $noti->title = 'Order Delivered';
+                    $noti->message =  "Shipper have  delivered  order $order->id";
+                    $noti->user_id = $order->user_id;
+                    $noti->save();
+
+                    // push noti
+                    Larafirebase::withTitle(['Order Delivering','Order Delivered'])
+                        ->withBody(["Order $order->id is being delivered.","Shipper have  delivered  order $order->id"])
+                        ->sendNotification([$merchantToken ,$userToken]);
+                }
             }
 
             if($request->status === 3) {
@@ -161,25 +166,27 @@ class OrderController extends ApiController
                 $merchantGetNoti = Token::where('user_id', $order->id_merchant)->first();
                 $merchantToken = $merchantGetNoti->device_token;
 
-                $noti = new Noti();
-                $noti->title = 'Order Delivered';
-                $noti->message =  "Shipper have delivered order $order->id";
-                $noti->user_id = $order->user_id;
-                $noti->save();
-
                 // to User
                 $userGetNoti = Token::where('user_id', $order->user_id)->first();
                 $userToken = $userGetNoti->device_token;
 
-                $noti = new Noti();
-                $noti->title = 'Order Delivered';
-                $noti->message =  "Shipper have  delivered  order $order->id";
-                $noti->user_id = $order->user_id;
-                $noti->save();
+                if($merchantToken && $userToken) {
+                    $noti = new Noti();
+                    $noti->title = 'Order Delivered';
+                    $noti->message =  "Shipper have delivered order $order->id";
+                    $noti->user_id = $order->user_id;
+                    $noti->save();
 
-                Larafirebase::withTitle(['Order Delivered','Order Delivered'])
-                    ->withBody(["Shipper have delivered order $order->id","Shipper have  delivered  order $order->id"])
-                    ->sendNotification([$merchantGetNoti,$userToken]);
+                    $noti = new Noti();
+                    $noti->title = 'Order Delivered';
+                    $noti->message =  "Shipper have  delivered  order $order->id";
+                    $noti->user_id = $order->user_id;
+                    $noti->save();
+
+                    Larafirebase::withTitle(['Order Delivered','Order Delivered'])
+                        ->withBody(["Shipper have delivered order $order->id","Shipper have  delivered  order $order->id"])
+                        ->sendNotification([$merchantGetNoti,$userToken]);
+                }
             }
 
             return $this->ok($order, OrderTransformer::class);
@@ -234,10 +241,11 @@ class OrderController extends ApiController
                 array_push($body, "New order is preparing");
                 array_push($tokens, $userToken);
 
-
-                Larafirebase::withTitle($title)
-                    ->withBody($body)
-                    ->sendNotification($tokens);
+                if($userToken) {
+                    Larafirebase::withTitle($title)
+                        ->withBody($body)
+                        ->sendNotification($tokens);
+                }
             }
 
             if($request->status === 4) {
