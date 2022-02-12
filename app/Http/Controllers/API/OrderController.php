@@ -83,20 +83,22 @@ class OrderController extends ApiController
 
         // step 1 push notification to merchant
         $merchantGetNoti = Token::where('user_id', $order->id_merchant)->first();
-        $merchantToken = $merchantGetNoti->device_token;
-        $userPhone = auth()->user()->phone;
-        $timeOrder = $order->created_at->format('H:i, Y-m-d');
+        if($merchantGetNoti) {
+            $merchantToken = $merchantGetNoti->device_token;
+            $userPhone = auth()->user()->phone;
+            $timeOrder = $order->created_at->format('H:i, Y-m-d');
 
-        if($merchantToken) {
-            $noti = new Noti();
-            $noti->title = 'New order';
-            $noti->message = "You have a new order from $userPhone at $timeOrder.";
-            $noti->user_id = $order->id_merchant;
-            $noti->save();
+            if($merchantToken) {
+                $noti = new Noti();
+                $noti->title = 'New order';
+                $noti->message = "You have a new order from $userPhone at $timeOrder.";
+                $noti->user_id = $order->id_merchant;
+                $noti->save();
 
-            Larafirebase::withTitle('New order')
-                ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
-                ->sendNotification($merchantToken);
+                Larafirebase::withTitle('New order')
+                    ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
+                    ->sendNotification($merchantToken);
+            }
         }
 
         return $this->ok($order, OrderTransformer::class);
