@@ -218,9 +218,21 @@ class OrderController extends ApiController
                         ->all();
                 });
 
+                $shippers = $users->map(function ($user) {
+                    return collect($user->toArray())
+                        ->only(['user_id'])
+                        ->all();
+                });
+
                 $tokens = [];
+                $shipper_id = [];
+
                 foreach ($subsets as $token) {
                     array_push($tokens, $token['device_token']);
+                }
+
+                foreach ($shippers as $shipper) {
+                    array_push($shipper_id, $shipper['user_id']);
                 }
 
                 $title = [];
@@ -230,7 +242,7 @@ class OrderController extends ApiController
                     $noti = new Noti();
                     $noti->title = 'New Order';
                     $noti->message = "New order is preparing";
-                    $noti->user_id = $order->shipper_id;
+                    $noti->user_id = $shipper_id[$i];
                     $noti->save();
 
                     array_push($title, "New Order");
