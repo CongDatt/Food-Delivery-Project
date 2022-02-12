@@ -35,6 +35,7 @@ class NotiTransformer extends Transformer
             'status' => (int) $noti->status,
             'title' => (string) $noti->title,
             'message' => (string) $noti->message,
+            'created_at'    => (string) $noti->created_at->format('H:i, Y-m-d')
         ];
     }
 }

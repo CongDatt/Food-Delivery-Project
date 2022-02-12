@@ -181,7 +181,7 @@ class OrderController extends ApiController
 
                     $noti = new Noti();
                     $noti->title = 'Order Delivered';
-                    $noti->message =  "Shipper have  delivered  order $order->id";
+                    $noti->message =  "Shipper have delivered order $order->id";
                     $noti->user_id = $order->user_id;
                     $noti->save();
 
