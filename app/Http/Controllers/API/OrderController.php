@@ -96,7 +96,7 @@ class OrderController extends ApiController
                 $noti->save();
 
                 Larafirebase::withTitle('New order')
-                    ->withBody("You have a new order form '.$userPhone.' at '$timeOrder..' .")
+                    ->withBody("You have a new order form $userPhone at $timeOrder.")
                     ->sendNotification($merchantToken);
             }
         }
@@ -150,14 +150,14 @@ class OrderController extends ApiController
 
                     $noti = new Noti();
                     $noti->title = 'Order Delivered';
-                    $noti->message =  "Shipper have  delivered  order $order->id";
+                    $noti->message =  "Shipper have delivered order $order->id";
                     $noti->user_id = $order->user_id;
                     $noti->save();
 
                     // push noti
                     Larafirebase::withTitle(['Order Delivering','Order Delivered'])
-                        ->withBody(["Order $order->id is being delivered.","Shipper have  delivered  order $order->id"])
-                        ->sendNotification([$merchantToken ,$userToken]);
+                        ->withBody(["Order $order->id is being delivered.","Shipper have delivered order $order->id"])
+                        ->sendNotification([$merchantToken,$userToken]);
                 }
             }
 
@@ -186,7 +186,7 @@ class OrderController extends ApiController
                     $noti->save();
 
                     Larafirebase::withTitle(['Order Delivered','Order Delivered'])
-                        ->withBody(["Shipper have delivered order $order->id","Shipper have  delivered  order $order->id"])
+                        ->withBody(["Shipper have delivered order $order->id","Shipper have delivered order $order->id"])
                         ->sendNotification([$merchantGetNoti,$userToken]);
                 }
             }
@@ -248,7 +248,7 @@ class OrderController extends ApiController
                     $noti->save();
 
                     array_push($title, "New Order");
-                    array_push($body, "Your order (.$order->id.) is preparing");
+                    array_push($body, "Your order ($order->id) is preparing");
                 }
 
                 array_push($title, "Order Preparing");
