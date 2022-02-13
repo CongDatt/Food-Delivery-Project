@@ -252,7 +252,7 @@ class OrderController extends ApiController
 
                 // to Shipper
                 $users = Token::where('is_shipper', 1)
-                    ->where('device_token', !null)
+                    ->where('device_token', '<>',null)
                     ->get();
 
                 $subsets = $users->map(function ($user) {
