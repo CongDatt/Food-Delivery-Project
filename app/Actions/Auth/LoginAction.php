@@ -5,6 +5,7 @@ namespace App\Actions\Auth;
 use App\Actions\BaseAction;
 use App\Enums\RoleType;
 use App\Models\Token;
+use Exception;
 use App\Models\User;
 use Flugg\Responder\Exceptions\Http\PageNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -23,34 +24,27 @@ class LoginAction extends BaseAction
      */
     public function __invoke($credentials): JsonResponse
     {
+
         $user = User::where('email', $credentials['username'])->first();
 
-        if($credentials['divice_token']) {
+        try {
             $tokenFinded = Token::where('device_token', $credentials['divice_token'])->first();
 
-            if($tokenFinded === null) {
-                $token = Token::updateOrCreate(
-                    [
-                        'user_id' => $user->id,
-                    ],
-                    [
-                        'device_token' => $credentials['divice_token'],
-                    ]
-                );
-            }
-            else {
-                $token = Token::updateOrCreate(
-                    [
-                        'device_token' => $credentials['divice_token'],
-                    ],
-                    [
-                        'user_id' => $user->id,
-                    ]);
-            }
+            $token = Token::updateOrCreate(
+                [
+                    'device_token' => $credentials['divice_token'],
+                ],
+                [
+                    'user_id' => $user->id,
+                ]);
+
             if($user->is_shipper == 1) {
                 $token->is_shipper = 1;
                 $token->save();
             }
+        }
+        catch (Exception $e){
+
         }
 
         return $this->execute($credentials);
