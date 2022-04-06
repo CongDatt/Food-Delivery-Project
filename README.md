@@ -1,8 +1,7 @@
 - DB Design: https://app.diagrams.net/?src=about#G1RmkZ3BBoVjoH041qBu9tEVPwBFOaFQY6
 
-- Noti Flow
 
-# Notification
+# Notification Flow
 
 ## step 1: user create order and notify
 
