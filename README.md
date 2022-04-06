@@ -1,28 +1,51 @@
-# Laravel Phenolink
+- DB Design: https://app.diagrams.net/?src=about#G1RmkZ3BBoVjoH041qBu9tEVPwBFOaFQY6
 
-## Installation
+- Noti Flow
 
-Install all the dependencies using composer
+# Notification
 
-    `composer i`
+## step 1: user create order and notify
 
-Copy the example env file and make the required configuration changes in the .env file
+- to Merchant
+    - title: New order
+    - message:  You have a new order form {user phone} at {time created at of order} .
 
-    `cp .env.example .env`
+## Step 2: merchant confirm take order (status = 1)
 
-Generate a new application key
+- to User
+    - title: Order Preparing
+    - message:  Your order {order Id} is preparing
+- to Shipper
+    - title: New Order
+    - message: New order is preparing
 
-    `php artisan key:generate`
+## Step 3: shipper take order (status = 2)
 
-Generate a new JWT authentication secret key
+- to Merchant
+    - title:  Order Delivering
+    - message: Order {orderId} is being delivered
+- to User
+    - title: Order Delivering
+    - message: Order {orderId} is being delivered
 
-    `php artisan jwt:secret`
+## Step 4: Shipper confirm delivered (status = 3)
 
-Run the database migrations and seeder (**Set the database connection in .env before migrating**)
-**Make sure you set the correct database connection information before running the migrations**
+- to Merchant
+    - title: Order Delivered
+    - message: Shipper have  delivered  order {orderId}
+- to User
+    - title: Order Delivered
+    - message: Shipper have  delivered  order {orderId}
+    
 
-    `php artisan migrate:fresh --seed`
+## Step 5: User confirm received (status = 4)
 
-## Dependencies
-- [jwt-auth](https://github.com/tymondesigns/jwt-auth) - For authentication using JSON Web Tokens
+- to Shipper
+    - title: Order Delivered
+    - message: User have  received  order {orderId}
+- to Merchant
+    - title: Order Delivered
+    - message: User have  received  order {orderId}
 
+
+- Docs: https://docs.google.com/document/d/1FDctaou4HsNCxx6VmQ60ejHZqb-AIsVDzMdQohfCPVU/edit
